@@ -1,10 +1,14 @@
-package com.uwmsa.msandbox;
+package com.uwmsa.msandbox.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.parse.*;
+import com.uwmsa.msandbox.Constants;
+import com.uwmsa.msandbox.R;
+import com.uwmsa.msandbox.Models.User;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -18,6 +22,10 @@ public class MainActivity extends ActionBarActivity {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, Constants.APPLICATION_ID, Constants.CLIENT_ID );
 
+        if(User.getCurrentUser() == null) {
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            MainActivity.this.startActivity(loginIntent);
+        }
     }
 
 

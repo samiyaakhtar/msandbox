@@ -4,5 +4,12 @@
     <string name="app_name">msandbox</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign In</string>
+
+    <string name="usernameText_title">Username</string>
+    <string name="passwordText_title">Password</string>
+    <string name="loginButtonText">Login</string>
+
+    <string name="signUpButtonText">Sign Up</string>
 
 </resources>
