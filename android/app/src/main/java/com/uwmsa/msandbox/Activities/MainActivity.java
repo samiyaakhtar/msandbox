@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.parse.*;
-import com.uwmsa.msandbox.Constants;
 import com.uwmsa.msandbox.R;
 import com.uwmsa.msandbox.Models.User;
 
@@ -18,14 +17,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Enable Local Datastore with Parse.com
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, Constants.APPLICATION_ID, Constants.CLIENT_ID );
-
-        if(User.getCurrentUser() == null) {
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            MainActivity.this.startActivity(loginIntent);
+        User currentUser = (User) User.getCurrentUser();
+        if(currentUser == null || !currentUser.isAuthenticated()) {
+            goToLoginScreen();
         }
+
     }
 
 
@@ -44,10 +40,18 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_main_logout) {
+            User.logOut();
+            goToLoginScreen();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected void goToLoginScreen() {
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        MainActivity.this.startActivity(loginIntent);
+    }
+
 }

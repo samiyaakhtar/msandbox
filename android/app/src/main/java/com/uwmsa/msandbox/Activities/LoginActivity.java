@@ -1,5 +1,6 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -39,25 +41,29 @@ public class LoginActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
 
     protected void setupButtonListeners() {
-        Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button loginButton = (Button) findViewById(R.id.login_loginButton);
         loginButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                EditText usernameTextField = (EditText)findViewById(R.id.usernameTextField);
-                EditText passwordTextField = (EditText)findViewById(R.id.passwordTextField);
+                EditText usernameTextField = (EditText)findViewById(R.id.login_usernameTextField);
+                EditText passwordTextField = (EditText)findViewById(R.id.login_passwordTextField);
 
                 ParseUser.logInInBackground(usernameTextField.getText().toString(), passwordTextField.getText().toString(), new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if(parseUser != null) {
                             // Navigate to home screen of app
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -65,10 +71,11 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
-        Button signUpButton = (Button) findViewById(R.id.signUpButton);
+        Button signUpButton = (Button) findViewById(R.id.login_signUpButton);
         signUpButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-
+                Intent loginIntent = new Intent(LoginActivity.this, SignupActivity.class);
+                LoginActivity.this.startActivity(loginIntent);
             }
         });
     }

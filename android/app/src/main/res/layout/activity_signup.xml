@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.uwmsa.msandbox.Activities.SignupActivity">
+
+    <EditText
+        android:id="@+id/signup_usernameTextField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:hint="@string/usernameText_title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+    <EditText
+        android:id="@+id/signup_passwordTextField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:hint="@string/passwordText_title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/signup_usernameTextField"
+        android:layout_alignLeft="@+id/signup_usernameTextField"
+        android:layout_alignStart="@+id/signup_usernameTextField"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/signup_confirmPasswordTextField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:hint="@string/confirmPasswordText_title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/signup_passwordTextField"
+        android:layout_alignLeft="@+id/signup_usernameTextField"
+        android:layout_alignStart="@+id/signup_usernameTextField"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/signup_uwStudentIdTextField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:hint="@string/uwStudentIdText_Title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/signup_confirmPasswordTextField"/>
+
+    <EditText
+        android:id="@+id/signup_emailAddressTextField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:hint="@string/emailAddress_Title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/signup_uwStudentIdTextField"/>
+
+    <Button
+        android:id="@+id/signup_signupButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/signup_emailAddressTextField"
+        android:text="@string/signupButton_Title"
+        />
+
+</RelativeLayout>

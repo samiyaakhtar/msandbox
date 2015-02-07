@@ -8,7 +8,7 @@
     tools:context="com.uwmsa.msandbox.Activities.LoginActivity">
 
     <EditText
-        android:id="@+id/usernameTextField"
+        android:id="@+id/login_usernameTextField"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
@@ -17,15 +17,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
     <EditText
-        android:id="@+id/passwordTextField"
+        android:id="@+id/login_passwordTextField"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
         android:hint="@string/passwordText_title"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/usernameTextField"
-        android:layout_alignLeft="@+id/usernameTextField"
-        android:layout_alignStart="@+id/usernameTextField"
+        android:layout_below="@+id/login_usernameTextField"
+        android:layout_alignLeft="@+id/login_usernameTextField"
+        android:layout_alignStart="@+id/login_usernameTextField"
         android:inputType="textPassword"/>
 
 
@@ -34,7 +34,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/loginButtonText"
-            android:id="@+id/loginButton"
+            android:id="@+id/login_loginButton"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
 
@@ -42,11 +42,11 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="@string/signUpButtonText"
-            android:id="@+id/signUpButton"
+            android:text="@string/signupButton_Title"
+            android:id="@+id/login_signUpButton"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/loginButton"/>
+            android:layout_below="@id/login_loginButton"/>
 
 
 
