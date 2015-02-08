@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">msandbox</string>
+    <string name="app_name">UWMSA</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_main_logout">Logout</string>
 
