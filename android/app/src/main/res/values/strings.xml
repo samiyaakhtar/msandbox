@@ -16,4 +16,12 @@
     <string name="emailAddress_Title">Email Address</string>
     <string name="signupButton_Title">Sign up</string>
     <string name="title_activity_signup">Sign up</string>
+
+    <string-array name="navigationDrawerItems">
+        <item >Home</item>
+        <item >Events</item>
+        <item >Worship</item>
+        <item >Community</item>
+    </string-array>
+
 </resources>

@@ -7,6 +7,16 @@
     android:backgroundTint="@color/abc_primary_text_material_dark"
     tools:context="com.uwmsa.msandbox.Activities.LoginActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_logoImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/logo"
+        android:layout_marginTop="50dp"
+    />
+
     <EditText
         android:id="@+id/login_usernameTextField"
         android:layout_width="300dp"
@@ -14,8 +24,8 @@
         android:layout_marginTop="54dp"
         android:hint="@string/usernameText_title"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/login_logoImageView"/>
     <EditText
         android:id="@+id/login_passwordTextField"
         android:layout_width="300dp"
@@ -36,7 +46,9 @@
             android:text="@string/loginButtonText"
             android:id="@+id/login_loginButton"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/login_passwordTextField"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -47,6 +59,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/login_loginButton"/>
+
 
 
 

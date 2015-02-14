@@ -57,7 +57,8 @@
         android:hint="@string/emailAddress_Title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/signup_uwStudentIdTextField"/>
+        android:layout_below="@+id/signup_uwStudentIdTextField"
+    />
 
     <Button
         android:id="@+id/signup_signupButton"
