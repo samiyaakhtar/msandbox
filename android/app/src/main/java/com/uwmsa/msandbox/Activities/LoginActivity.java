@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -23,6 +24,7 @@ public class LoginActivity extends ActionBarActivity {
         setContentView(R.layout.activity_login);
 
         setupButtonListeners();
+
     }
 
 
@@ -75,6 +77,15 @@ public class LoginActivity extends ActionBarActivity {
         signUpButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent loginIntent = new Intent(LoginActivity.this, SignupActivity.class);
+                LoginActivity.this.startActivity(loginIntent);
+            }
+        });
+
+        TextView forgotPasswordButton = (TextView) findViewById(R.id.login_forgotPasswordButton);
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 LoginActivity.this.startActivity(loginIntent);
             }
         });

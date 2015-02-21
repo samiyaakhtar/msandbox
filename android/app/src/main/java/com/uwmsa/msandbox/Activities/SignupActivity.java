@@ -80,10 +80,9 @@ public class SignupActivity extends ActionBarActivity {
                             Toast.makeText(SignupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        else {
-                            Intent loginIntent = new Intent(SignupActivity.this, MainActivity.class);
-                            SignupActivity.this.startActivity(loginIntent);
-                        }
+                        Intent loginIntent = new Intent(SignupActivity.this, MainActivity.class);
+                        SignupActivity.this.startActivity(loginIntent);
+
                     }
                 });
             }

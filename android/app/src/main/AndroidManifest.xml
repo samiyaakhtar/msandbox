@@ -43,6 +43,14 @@
             android:label="@string/title_activity_signup"
             android:parentActivityName=".Activities.LoginActivity" >
         </activity>
+        <activity
+            android:name=".Activities.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:parentActivityName=".Activities.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.uwmsa.msandbox.Activities.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

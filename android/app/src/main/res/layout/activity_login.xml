@@ -38,27 +38,42 @@
         android:layout_alignStart="@+id/login_usernameTextField"
         android:inputType="textPassword"/>
 
+    <LinearLayout
+        android:id="@+id/LinearLayoutButtons"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/login_passwordTextField"
+        android:layout_marginTop="40dp">
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loginButtonText"
             android:id="@+id/login_loginButton"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_below="@+id/login_passwordTextField"/>
+            android:layout_weight="1"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signupButton_Title"
             android:id="@+id/login_signUpButton"
-            android:layout_centerVertical="true"
+            android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/login_forgotPasswordButton"
+            android:text="@string/forgotPasswordButton_Title"
+            android:layout_below="@id/LinearLayoutButtons"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/login_loginButton"/>
+            android:layout_marginTop="40dp"
+            />
 
 
 
