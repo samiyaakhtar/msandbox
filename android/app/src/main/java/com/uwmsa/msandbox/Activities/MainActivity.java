@@ -1,16 +1,24 @@
 package com.uwmsa.msandbox.Activities;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.parse.*;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+
 import com.uwmsa.msandbox.R;
 import com.uwmsa.msandbox.Models.User;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private String[] mNavigationDrawerTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +28,10 @@ public class MainActivity extends ActionBarActivity {
         User currentUser = (User) User.getCurrentUser();
         if(currentUser == null || !currentUser.isAuthenticated()) {
             goToLoginScreen();
+            return;
         }
+
+        setupNavigationDrawer();
 
     }
 
@@ -54,4 +65,15 @@ public class MainActivity extends ActionBarActivity {
         MainActivity.this.startActivity(loginIntent);
     }
 
+    protected void setupNavigationDrawer() {
+        mNavigationDrawerTitles = getResources().getStringArray(R.array.navigationDrawerItems);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.navigation_drawer_item,
+                R.id.navigationDrawerTextView,
+                mNavigationDrawerTitles));
+        //Todo: Set the list's click listeners
+
+    }
 }
