@@ -38,7 +38,6 @@ public class MainActivity extends ActionBarActivity
         User currentUser = (User) User.getCurrentUser();
         if(currentUser == null || !currentUser.isAuthenticated()) {
             goToLoginScreen();
-            return;
         }
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
