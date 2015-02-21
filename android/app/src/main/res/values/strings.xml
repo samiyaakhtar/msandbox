@@ -4,24 +4,23 @@
     <string name="app_name">UWMSA</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_main_logout">Logout</string>
-
     <string name="title_activity_login">Sign In</string>
     <string name="usernameText_title">Username</string>
     <string name="passwordText_title">Password</string>
     <string name="loginButtonText">Login</string>
-
-
     <string name="confirmPasswordText_title">Confirm password</string>
     <string name="uwStudentIdText_Title">UW Student Id (optional)</string>
     <string name="emailAddress_Title">Email Address</string>
     <string name="signupButton_Title">Sign up</string>
     <string name="title_activity_signup">Sign up</string>
 
-    <string-array name="navigationDrawerItems">
-        <item >Home</item>
-        <item >Events</item>
-        <item >Worship</item>
-        <item >Community</item>
-    </string-array>
+    <string name="title_section1">Home</string>
+    <string name="title_section2">Events</string>
+    <string name="title_section3">Worship</string>
+    <string name="title_section4">Community</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example Action</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

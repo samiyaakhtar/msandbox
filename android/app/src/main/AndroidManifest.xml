@@ -15,11 +15,11 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".App">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/app_name" >
@@ -36,12 +36,12 @@
 
         <activity
             android:name=".Activities.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name=".Activities.SignupActivity"
             android:label="@string/title_activity_signup"
-            android:parentActivityName=".Activities.LoginActivity">
+            android:parentActivityName=".Activities.LoginActivity" >
         </activity>
     </application>
 
