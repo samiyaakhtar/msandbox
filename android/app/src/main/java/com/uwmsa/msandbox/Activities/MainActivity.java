@@ -7,15 +7,25 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.uwmsa.msandbox.Adapters.EventAdapter;
+import com.uwmsa.msandbox.Models.Event;
 import com.uwmsa.msandbox.Models.User;
 import com.uwmsa.msandbox.R;
+
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -30,6 +40,11 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    /**
+     * Used to display events in a list of cards
+     */
+    private RecyclerView mEventRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +55,7 @@ public class MainActivity extends ActionBarActivity
             goToLoginScreen();
         }
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
-
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        setupViews();
     }
 
     @Override
@@ -57,6 +65,42 @@ public class MainActivity extends ActionBarActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
+    }
+
+    protected void setupViews() {
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // Set up the event recycler view
+        mEventRecyclerView = (RecyclerView) findViewById(R.id.main_eventRecyclerView);
+        mEventRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        mEventRecyclerView.setLayoutManager(llm);
+
+        fillEventsRecyclerView();
+    }
+
+
+    public void fillEventsRecyclerView() {
+        ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.CLASSNAME);
+        eventQuery.findInBackground(new FindCallback<Event>() {
+            @Override
+            public void done(List<Event> events, ParseException e) {
+                if (e != null) {
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                EventAdapter eventAdapter = new EventAdapter(events);
+                mEventRecyclerView.setAdapter(eventAdapter);
+            }
+        });
     }
 
     public void onSectionAttached(int number) {
