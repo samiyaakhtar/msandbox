@@ -3,7 +3,9 @@ package com.uwmsa.msandbox;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseCrashReporting;
 import com.parse.ParseObject;
+import com.uwmsa.msandbox.Models.Event;
 import com.uwmsa.msandbox.Models.User;
 
 /**
@@ -17,10 +19,14 @@ public class App extends Application {
     }
 
     protected void setupParse() {
+        Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
+        ParseCrashReporting.enable(this);
+
         // Enable Local Datastore with Parse.com
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, Constants.APPLICATION_ID, Constants.CLIENT_ID );
 
         ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(Event.class);
     }
 }
