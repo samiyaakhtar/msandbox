@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.uwmsa.msandbox.Adapters.EventAdapter;
 import com.uwmsa.msandbox.Models.Event;
 import com.uwmsa.msandbox.Models.User;
@@ -50,10 +52,18 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        User currentUser = (User) User.getCurrentUser();
-        if(currentUser == null || !currentUser.isAuthenticated()) {
-            goToLoginScreen();
+        try {
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            if (currentUser != null) {
+                User cUser = (User) User.getCurrentUser();
+                if(cUser == null || !cUser.isAuthenticated()) {
+                    goToLoginScreen();
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("Failed: ", ex.getMessage());
         }
+
 
         setupViews();
     }

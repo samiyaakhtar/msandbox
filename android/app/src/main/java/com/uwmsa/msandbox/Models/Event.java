@@ -16,6 +16,7 @@ public class Event extends ParseObject {
     public static final String LOCATION = "location";
     public static final String FACEBOOKEVENT = "facebookEvent";
     public static final String CATEGORY = "category";
+    public static final String IMAGE = "image";
 
     public Event() {
 
