@@ -2,7 +2,6 @@ package com.uwmsa.msandbox.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +15,7 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.uwmsa.msandbox.Activities.EventDetails;
+import com.uwmsa.msandbox.Activities.EventDetailsActivity;
 import com.uwmsa.msandbox.Activities.MainActivity;
 import com.uwmsa.msandbox.Adapters.EventAdapter;
 import com.uwmsa.msandbox.Models.Event;
@@ -24,15 +23,7 @@ import com.uwmsa.msandbox.R;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EventList.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EventList#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class EventList extends Fragment implements EventAdapter.OnEventClickListener {
+public class EventListFragment extends Fragment implements EventAdapter.OnEventClickListener {
 
 
     /**
@@ -42,8 +33,8 @@ public class EventList extends Fragment implements EventAdapter.OnEventClickList
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public static EventList newInstance(int sectionNumber) {
-        EventList fragment = new EventList();
+    public static EventListFragment newInstance(int sectionNumber) {
+        EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -51,7 +42,7 @@ public class EventList extends Fragment implements EventAdapter.OnEventClickList
         return fragment;
     }
 
-    public EventList() {
+    public EventListFragment() {
         // Required empty public constructor
     }
 
@@ -74,7 +65,7 @@ public class EventList extends Fragment implements EventAdapter.OnEventClickList
                     return;
                 }
                 EventAdapter eventAdapter = new EventAdapter(events);
-                eventAdapter.setOnEventClickListener(EventList.this);
+                eventAdapter.setOnEventClickListener(EventListFragment.this);
                 mEventRecyclerView.setAdapter(eventAdapter);
             }
         });
@@ -116,7 +107,7 @@ public class EventList extends Fragment implements EventAdapter.OnEventClickList
 
     @Override
     public void OnEventClickListener(Event event) {
-        Intent eventDetailsIntent = new Intent(getActivity(), EventDetails.class);
+        Intent eventDetailsIntent = new Intent(getActivity(), EventDetailsActivity.class);
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("event", event);

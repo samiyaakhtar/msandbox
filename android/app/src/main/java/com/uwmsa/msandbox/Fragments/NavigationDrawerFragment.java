@@ -1,4 +1,4 @@
-package com.uwmsa.msandbox.Activities;
+package com.uwmsa.msandbox.Fragments;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;

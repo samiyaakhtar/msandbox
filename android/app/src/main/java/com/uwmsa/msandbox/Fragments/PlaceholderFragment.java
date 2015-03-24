@@ -1,4 +1,4 @@
-package com.uwmsa.msandbox.Activities;
+package com.uwmsa.msandbox.Fragments;
 
 /**
  * Created by dx179 on 3/24/15.
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.uwmsa.msandbox.Activities.MainActivity;
 import com.uwmsa.msandbox.R;
 
 /**

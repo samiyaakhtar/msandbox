@@ -13,7 +13,7 @@ import android.os.Build;
 
 import com.uwmsa.msandbox.R;
 
-public class EventDetails extends ActionBarActivity {
+public class EventDetailsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.uwmsa.msandbox.Fragments.EventList;
+import com.uwmsa.msandbox.Fragments.EventListFragment;
+import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
+import com.uwmsa.msandbox.Fragments.PlaceholderFragment;
 import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.Utilities.*;
 import com.uwmsa.msandbox.R;
@@ -66,7 +68,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         switch (itemName) {
 
             case EVENTS:
-                fragment = EventList.newInstance(position);
+                fragment = EventListFragment.newInstance(position);
                 break;
             case PRAYER_LOCATIONS:
             case HOME:
