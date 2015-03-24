@@ -48,7 +48,7 @@ public class PlaceholderFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         // TODO
-        ((HomeActivity) activity).onSectionAttached(
+        ((MainActivity) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 

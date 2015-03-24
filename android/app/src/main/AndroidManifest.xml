@@ -52,10 +52,6 @@
                 android:value="com.uwmsa.msandbox.Activities.LoginActivity" />
         </activity>
         <activity
-            android:name=".Activities.HomeActivity"
-            android:label="@string/title_activity_home" >
-        </activity>
-        <activity
             android:name=".Activities.EventDetails"
             android:label="@string/title_activity_event_details"
             android:parentActivityName=".Activities.HomeActivity" >
