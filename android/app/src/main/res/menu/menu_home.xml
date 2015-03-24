@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.uwmsa.msandbox.Activities.MainActivity">
+    tools:context="com.uwmsa.msandbox.Activities.HomeActivity">
 
-    <item android:id="@+id/action_main_logout" android:title="@string/action_main_logout"
+    <item android:id="@+id/action_home_logout" android:title="@string/action_main_logout"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

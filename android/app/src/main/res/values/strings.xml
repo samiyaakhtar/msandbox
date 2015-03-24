@@ -17,12 +17,12 @@
     <string name="forgotPassword_submitTitle"><u>Submit</u></string>
     <string name="title_section1">Home</string>
     <string name="title_section2">Events</string>
-    <string name="title_section3">Worship</string>
-    <string name="title_section4">Community</string>
+    <string name="title_section3">Prayer Locations</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example Action</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_forgot_password">ForgotPassword</string>
+    <string name="title_activity_home">HomeActivity</string>
 
 </resources>
