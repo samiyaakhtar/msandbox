@@ -55,6 +55,14 @@
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name=".Activities.EventDetails"
+            android:label="@string/title_activity_event_details"
+            android:parentActivityName=".Activities.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.uwmsa.msandbox.Activities.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

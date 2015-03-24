@@ -53,38 +53,38 @@ public class SignupActivity extends ActionBarActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = ((EditText)findViewById(R.id.signup_usernameTextField)).getText().toString();
-                String password = ((EditText)findViewById(R.id.signup_passwordTextField)).getText().toString();
-                String confirmPassword = ((EditText)findViewById(R.id.signup_confirmPasswordTextField)).getText().toString();
-                String uwStudentId = ((EditText)findViewById(R.id.signup_uwStudentIdTextField)).getText().toString();
-                String email = ((EditText)findViewById(R.id.signup_emailAddressTextField)).getText().toString();
+            String username = ((EditText)findViewById(R.id.signup_usernameTextField)).getText().toString();
+            String password = ((EditText)findViewById(R.id.signup_passwordTextField)).getText().toString();
+            String confirmPassword = ((EditText)findViewById(R.id.signup_confirmPasswordTextField)).getText().toString();
+            String uwStudentId = ((EditText)findViewById(R.id.signup_uwStudentIdTextField)).getText().toString();
+            String email = ((EditText)findViewById(R.id.signup_emailAddressTextField)).getText().toString();
 
-                if(!confirmPassword.equals(password)) {
-                    Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if(password.equals("")) {
-                    Toast.makeText(SignupActivity.this, "Password cannot be blank", Toast.LENGTH_SHORT).show();
+            if(!confirmPassword.equals(password)) {
+                Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                return;
+            } else if(password.equals("")) {
+                Toast.makeText(SignupActivity.this, "Password cannot be blank", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setPassword(password);
+            newUser.setUwStudentId(uwStudentId);
+            newUser.setEmail(email);
+
+            newUser.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                if (e != null) {
+                    Toast.makeText(SignupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Intent loginIntent = new Intent(SignupActivity.this, MainActivity.class);
+                SignupActivity.this.startActivity(loginIntent);
 
-                User newUser = new User();
-                newUser.setUsername(username);
-                newUser.setPassword(password);
-                newUser.setUwStudentId(uwStudentId);
-                newUser.setEmail(email);
-
-                newUser.signUpInBackground(new SignUpCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Toast.makeText(SignupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Intent loginIntent = new Intent(SignupActivity.this, MainActivity.class);
-                        SignupActivity.this.startActivity(loginIntent);
-
-                    }
-                });
+                }
+            });
             }
         });
     }

@@ -3,11 +3,13 @@ package com.uwmsa.msandbox.Models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import java.io.Serializable;
+
 /**
  * Created by samiya on 28/02/15.
  */
 @ParseClassName(Event.CLASSNAME)
-public class Event extends ParseObject {
+public class Event extends ParseObject implements Serializable {
     public static final String CLASSNAME = "Event";
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
