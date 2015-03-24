@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.uwmsa.msandbox.Models.Event;
 import com.uwmsa.msandbox.R;
 
 public class EventDetailsActivity extends ActionBarActivity {

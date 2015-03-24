@@ -73,11 +73,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventRecycle
     @Override
     public void onBindViewHolder(EventRecyclerViewHolder eventViewHolder, int i) {
         Event event = eventList.get(i);
-        String eventDetails = event.getString(Event.TITLE) ;//+ " " + event.getString(Event.DESCRIPTION);
+        String eventDetails = event.getTitle() ;
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, hh:mm a");
-        String eventStartTime = dateFormat.format(event.getDate(Event.STARTTIME));
-        String eventCategory = event.getString(Event.CATEGORY);
-        ParseFile file = event.getParseFile(Event.IMAGE);
+        String eventStartTime = dateFormat.format(event.getStartTime());
+        String eventCategory = event.getCategory();
+        ParseFile file = event.getImage();
 
         eventViewHolder.vTitle.setText(eventDetails);
         eventViewHolder.vStartTime.setText(eventStartTime);

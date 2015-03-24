@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.uwmsa.msandbox.Activities.EventDetailsActivity;
 import com.uwmsa.msandbox.Activities.MainActivity;
@@ -108,10 +109,7 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
     @Override
     public void OnEventClickListener(Event event) {
         Intent eventDetailsIntent = new Intent(getActivity(), EventDetailsActivity.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("event", event);
-        eventDetailsIntent.putExtras(bundle);
+        eventDetailsIntent.putExtra("event", event);
 
         getActivity().startActivity(eventDetailsIntent);
     }
