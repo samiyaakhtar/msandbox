@@ -3,47 +3,58 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context="com.uwmsa.msandbox.Activities.EventDetailsActivity" tools:ignore="MergeRootFrame" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        >
+    <ScrollView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff">
 
-        <com.parse.ParseImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/eventDetails_thumbnail"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/eventDetails_title"
-            android:textColor="#000000"/>
+            <com.parse.ParseImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/eventDetails_thumbnail"
+                android:scaleType="fitXY"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/eventDetails_startTime"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/eventDetails_title"
+                android:textColor="#000000"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/eventDetails_endTime"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/eventDetails_startTime"
+                android:textColor="#000000"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/eventDetails_location"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/eventDetails_endTime"
+                android:textColor="#000000"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventDetails_description"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/eventDetails_location"
+                android:textColor="#000000"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/eventDetails_description"
+                android:textColor="#000000"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </FrameLayout>
