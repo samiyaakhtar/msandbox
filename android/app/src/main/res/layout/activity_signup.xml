@@ -64,6 +64,8 @@
         android:id="@+id/signup_signupButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#4B9D8F"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/signup_emailAddressTextField"
         android:text="@string/signupButton_Title"

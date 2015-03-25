@@ -36,7 +36,9 @@
         android:layout_below="@+id/login_usernameTextField"
         android:layout_alignLeft="@+id/login_usernameTextField"
         android:layout_alignStart="@+id/login_usernameTextField"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:state_focused="true" android:shadowColor="#4B9D8F"
+        />
 
     <LinearLayout
         android:id="@+id/LinearLayoutButtons"
@@ -51,19 +53,21 @@
             android:layout_height="wrap_content"
             android:text="@string/loginButtonText"
             android:id="@+id/login_loginButton"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="#4B9D8F"
+            />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signupButton_Title"
+            android:background="#4B9D8F"
             android:id="@+id/login_signUpButton"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            />
 
         </LinearLayout>
-
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,8 +78,5 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             />
-
-
-
 
 </RelativeLayout>
