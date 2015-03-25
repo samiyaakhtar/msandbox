@@ -87,5 +87,7 @@ public class EventDetailsActivity extends ActionBarActivity {
         vStartTime.setText("Starts: " + Utilities.getStringFromDate(mEvent.getStartTime()));
         vEndTime.setText("Ends: " + Utilities.getStringFromDate(mEvent.getEndTime()));
         vLocation.setText("Location: " + mEvent.getLocation());
+
+        setTitle(mEvent.getTitle());
     }
 }
