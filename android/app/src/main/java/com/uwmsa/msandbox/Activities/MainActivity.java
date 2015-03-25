@@ -42,6 +42,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 if(cUser == null || !cUser.isAuthenticated()) {
                     Utilities.goToLoginScreen(this);
                 }
+            } else {
+                Utilities.goToLoginScreen(this);
             }
         } catch (Exception ex) {
             Log.e("Failed: ", ex.getMessage());
