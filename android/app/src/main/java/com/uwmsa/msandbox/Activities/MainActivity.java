@@ -14,6 +14,7 @@ import com.parse.ParseUser;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
 import com.uwmsa.msandbox.Fragments.PlaceholderFragment;
+import com.uwmsa.msandbox.Fragments.PrayerLocationListFragment;
 import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.Utilities.*;
 import com.uwmsa.msandbox.R;
@@ -73,6 +74,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 fragment = EventListFragment.newInstance(position);
                 break;
             case PRAYER_LOCATIONS:
+                fragment = PrayerLocationListFragment.newInstance(position);
+                break;
             case HOME:
             default:
                 fragment = PlaceholderFragment.newInstance(position);
