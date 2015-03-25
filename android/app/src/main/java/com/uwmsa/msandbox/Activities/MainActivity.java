@@ -1,5 +1,7 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -58,6 +60,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_home_layout));
+
+
+//        ActionBar bar = getSupportActionBar();
+//        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4B9D8F")));
     }
 
     @Override
