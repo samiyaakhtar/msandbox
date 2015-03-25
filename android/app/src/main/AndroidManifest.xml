@@ -51,6 +51,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.uwmsa.msandbox.Activities.LoginActivity" />
         </activity>
+        <activity
+            android:name=".Activities.EventDetailsActivity"
+            android:label="@string/title_activity_event_details"
+            android:parentActivityName=".Activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.uwmsa.msandbox.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
