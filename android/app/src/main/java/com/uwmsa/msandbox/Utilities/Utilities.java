@@ -5,6 +5,9 @@ import android.content.Intent;
 
 import com.uwmsa.msandbox.Activities.LoginActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by dx179 on 3/24/15.
  */
@@ -20,6 +23,11 @@ public class Utilities {
     public static void goToLoginScreen(Activity currentActivity) {
         Intent loginIntent = new Intent(currentActivity, LoginActivity.class);
         currentActivity.startActivity(loginIntent);
+    }
+
+    public static String getStringFromDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, hh:mm a");
+        return dateFormat.format(date);
     }
 }
 

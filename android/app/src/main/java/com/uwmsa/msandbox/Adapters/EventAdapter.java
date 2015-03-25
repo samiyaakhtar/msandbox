@@ -10,6 +10,7 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.R;
+import com.uwmsa.msandbox.Utilities.Utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -74,8 +75,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventRecycle
     public void onBindViewHolder(EventRecyclerViewHolder eventViewHolder, int i) {
         Event event = eventList.get(i);
         String eventDetails = event.getTitle() ;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, hh:mm a");
-        String eventStartTime = dateFormat.format(event.getStartTime());
+        String eventStartTime = Utilities.getStringFromDate(event.getStartTime());
         String eventCategory = event.getCategory();
         ParseFile file = event.getImage();
 

@@ -3,18 +3,21 @@ package com.uwmsa.msandbox.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
  * Created by samiya on 28/02/15.
  */
 @ParseClassName(Event.CLASSNAME)
-public class Event extends ParseObject implements Serializable {
+public class Event extends ParseObject {
     public static final String CLASSNAME = "Event";
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
@@ -24,9 +27,15 @@ public class Event extends ParseObject implements Serializable {
     public static final String FACEBOOKEVENT = "facebookEvent";
     public static final String CATEGORY = "category";
     public static final String IMAGE = "image";
+    public static final String OBJECTID = "objectId";
 
     public Event() {
 
+    }
+
+    public static void fetchEventInBackground(String objectId, GetCallback<Event> eventGetCallback) {
+        ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.class);
+        eventQuery.getInBackground(objectId, eventGetCallback);
     }
 
     public String getTitle() {

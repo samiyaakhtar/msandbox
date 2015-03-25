@@ -7,7 +7,7 @@
     tools:context="com.uwmsa.msandbox.Activities.EventDetailsActivity$PlaceholderFragment"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.parse.ParseImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/eventDetails_thumbnail"/>
@@ -15,7 +15,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:id="@+id/eventDetails_title"/>
+        android:id="@+id/eventDetails_title"
+        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="match_parent"
