@@ -1,5 +1,6 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
@@ -57,12 +58,19 @@ public class LoginActivity extends ActionBarActivity {
         Button loginButton = (Button) findViewById(R.id.login_loginButton);
         loginButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+
+                final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+                progressDialog.setMessage("Logging In");
+                progressDialog.show();
+
                 EditText usernameTextField = (EditText)findViewById(R.id.login_usernameTextField);
                 EditText passwordTextField = (EditText)findViewById(R.id.login_passwordTextField);
 
                 ParseUser.logInInBackground(usernameTextField.getText().toString(), passwordTextField.getText().toString(), new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
+                        progressDialog.dismiss();
+
                         if(parseUser != null) {
                             // Navigate to home screen of app
                             finish();
