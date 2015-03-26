@@ -1,5 +1,7 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +16,7 @@ import com.parse.ParseUser;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
 import com.uwmsa.msandbox.Fragments.PlaceholderFragment;
+import com.uwmsa.msandbox.Fragments.PrayerLocationListFragment;
 import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.Utilities.*;
 import com.uwmsa.msandbox.R;
@@ -42,6 +45,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 if(cUser == null || !cUser.isAuthenticated()) {
                     Utilities.goToLoginScreen(this);
                 }
+            } else {
+                Utilities.goToLoginScreen(this);
             }
         } catch (Exception ex) {
             Log.e("Failed: ", ex.getMessage());
@@ -55,6 +60,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_home_layout));
+
+
+//        ActionBar bar = getSupportActionBar();
+//        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4B9D8F")));
     }
 
     @Override
@@ -71,6 +80,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 fragment = EventListFragment.newInstance(position);
                 break;
             case PRAYER_LOCATIONS:
+                fragment = PrayerLocationListFragment.newInstance(position);
+                break;
             case HOME:
             default:
                 fragment = PlaceholderFragment.newInstance(position);
