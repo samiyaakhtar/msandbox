@@ -12,24 +12,24 @@ import com.uwmsa.msandbox.R;
 import java.util.List;
 
 /**
- * Created by dx179 on 3/25/15.
+ * Created by dx179 on 3/27/15.
  */
-public class PrayerRoomAdapter extends RecyclerView.Adapter<PrayerRoomAdapter.PrayerRoomRecyclerViewHolder> {
+public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocationDailyAdapter.PrayerLocationDailyRecyclerViewHolder> {
 
-    List<PrayerRoomLocation> prayerRoomLocationList;
+    List<PrayerRoomLocation> prayerLocationDailyList;
 
-    public PrayerRoomAdapter(List<PrayerRoomLocation> locations) {
-        prayerRoomLocationList = locations;
+    public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations) {
+        prayerLocationDailyList = locations;
     }
 
     @Override
     public int getItemCount() {
-        return prayerRoomLocationList.size();
+        return prayerLocationDailyList.size();
     }
 
     @Override
-    public void onBindViewHolder(PrayerRoomRecyclerViewHolder holder, int position) {
-        PrayerRoomLocation location = prayerRoomLocationList.get(position);
+    public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
+        PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String roomNumber = location.getRoomNumber();
         String description = location.getDescription();
 
@@ -39,20 +39,20 @@ public class PrayerRoomAdapter extends RecyclerView.Adapter<PrayerRoomAdapter.Pr
     }
 
     @Override
-    public PrayerRoomRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PrayerLocationDailyRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.prayer_room_card, parent, false);
-        return new PrayerRoomRecyclerViewHolder(itemView);
+        return new PrayerLocationDailyRecyclerViewHolder(itemView);
     }
 
-    public class PrayerRoomRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class PrayerLocationDailyRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected TextView vRoomNumber;
         protected TextView vDescription;
         protected PrayerRoomLocation mLocation;
 
-        public PrayerRoomRecyclerViewHolder(View v) {
+        public PrayerLocationDailyRecyclerViewHolder(View v) {
             super(v);
             vRoomNumber = (TextView) v.findViewById(R.id.prayerLocation_roomNumber);
             vDescription = (TextView) v.findViewById(R.id.prayerLocation_description);

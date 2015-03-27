@@ -46,14 +46,6 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
-
-
     public void fillEventsRecyclerView() {
         ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.CLASSNAME);
 

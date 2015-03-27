@@ -1,7 +1,5 @@
 package com.uwmsa.msandbox.Activities;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +14,7 @@ import com.parse.ParseUser;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
 import com.uwmsa.msandbox.Fragments.PlaceholderFragment;
-import com.uwmsa.msandbox.Fragments.PrayerLocationListFragment;
+import com.uwmsa.msandbox.Fragments.PrayerLocationMainFragment;
 import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.Utilities.*;
 import com.uwmsa.msandbox.R;
@@ -61,7 +59,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_home_layout));
 
-
 //        ActionBar bar = getSupportActionBar();
 //        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4B9D8F")));
     }
@@ -71,6 +68,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         // update the main content by replacing fragments
         Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
+        ActionBar actionBar = getSupportActionBar();
 
 
         Utilities.NAVIGATION_DRAWER_ITEMS itemName = Utilities.getNavigationDrawerItem(position);
@@ -78,12 +76,15 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
             case EVENTS:
                 fragment = EventListFragment.newInstance(position);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 break;
             case PRAYER_LOCATIONS:
-                fragment = PrayerLocationListFragment.newInstance(position);
+                fragment = PrayerLocationMainFragment.newInstance(position);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 break;
             case HOME:
             default:
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 fragment = PlaceholderFragment.newInstance(position);
                 break;
         }
@@ -110,7 +111,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
