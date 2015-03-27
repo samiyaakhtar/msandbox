@@ -76,6 +76,23 @@ public class PrayerLocationMainFragment extends Fragment implements ActionBar.Ta
             actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
         }
 
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         return view;
     }
 
