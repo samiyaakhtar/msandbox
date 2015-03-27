@@ -11,6 +11,7 @@ public class PrayerRoomLocation extends ParseObject {
     public static final String CLASSNAME = "PrayerRoomLocation";
     public static final String ROOMNUMBER = "roomNumber";
     public static final String DESCRIPTION = "Description";
+    public static final String TYPE = "type";
 
     public PrayerRoomLocation() {
 
@@ -22,5 +23,9 @@ public class PrayerRoomLocation extends ParseObject {
 
     public String getDescription() {
         return getString(DESCRIPTION);
+    }
+
+    public String getType() {
+        return getString(TYPE);
     }
 }

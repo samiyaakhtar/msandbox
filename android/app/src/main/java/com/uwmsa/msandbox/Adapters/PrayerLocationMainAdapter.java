@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.uwmsa.msandbox.Fragments.PrayerLocationDailyFragment;
+import com.uwmsa.msandbox.Fragments.PrayerLocationJumuahFragment;
 
 /**
  * Created by dx179 on 3/25/15.
@@ -23,7 +24,7 @@ public class PrayerLocationMainAdapter extends FragmentPagerAdapter {
             case 0:
                 return new PrayerLocationDailyFragment();
             case 1:
-                return new PrayerLocationDailyFragment();
+                return new PrayerLocationJumuahFragment();
             default:
                 return new Fragment();
         }

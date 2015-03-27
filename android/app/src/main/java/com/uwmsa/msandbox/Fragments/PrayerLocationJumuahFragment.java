@@ -1,6 +1,5 @@
 package com.uwmsa.msandbox.Fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +13,7 @@ import android.view.ViewGroup;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.uwmsa.msandbox.Activities.MainActivity;
-import com.uwmsa.msandbox.Adapters.PrayerLocationDailyAdapter;
+import com.uwmsa.msandbox.Adapters.PrayerLocationJumuahAdapter;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
 
@@ -24,7 +22,7 @@ import java.util.List;
 /**
  * Created by dx179 on 3/27/15.
  */
-public class PrayerLocationDailyFragment extends Fragment {
+public class PrayerLocationJumuahFragment extends Fragment {
 
     private RecyclerView mPrayerRoomRecyclerView;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -53,12 +51,12 @@ public class PrayerLocationDailyFragment extends Fragment {
 
     private void getLocations() {
         ParseQuery<PrayerRoomLocation> query = ParseQuery.getQuery(PrayerRoomLocation.class);
-        query.whereEqualTo(PrayerRoomLocation.TYPE, "Daily");
+        query.whereEqualTo(PrayerRoomLocation.TYPE, "Jumuah");
         query.findInBackground(new FindCallback<PrayerRoomLocation>() {
             @Override
             public void done(List<PrayerRoomLocation> prayerRoomLocations, ParseException e) {
                 if (e == null) {
-                    PrayerLocationDailyAdapter adapter = new PrayerLocationDailyAdapter(prayerRoomLocations);
+                    PrayerLocationJumuahAdapter adapter = new PrayerLocationJumuahAdapter(prayerRoomLocations);
                     mPrayerRoomRecyclerView.setAdapter(adapter);
                 } else {
                     // TODO: handle error
