@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +24,6 @@ public class EventDetailsActivity extends ActionBarActivity {
 
     private Event mEvent;
     private ParseImageView vImageView;
-    private TextView vTitle;
     private TextView vDescription;
     private TextView vCategory;
     private TextView vFacebookEvent;
@@ -50,7 +50,6 @@ public class EventDetailsActivity extends ActionBarActivity {
         });
 
         vImageView = (ParseImageView) findViewById(R.id.eventDetails_thumbnail);
-        vTitle = (TextView) findViewById(R.id.eventDetails_title);
         vDescription = (TextView) findViewById(R.id.eventDetails_description);
         vLocation = (TextView) findViewById(R.id.eventDetails_location);
         vStartTime = (TextView) findViewById(R.id.eventDetails_startTime);
@@ -80,14 +79,12 @@ public class EventDetailsActivity extends ActionBarActivity {
 
 
     protected void fillEventDetailsView() {
-        vTitle.setText(mEvent.getTitle());
         vDescription.setText(mEvent.getDescription());
         vImageView.setParseFile(mEvent.getImage());
         vImageView.loadInBackground();
-        vStartTime.setText("Starts: " + Utilities.getStringFromDate(mEvent.getStartTime()));
-        vEndTime.setText("Ends: " + Utilities.getStringFromDate(mEvent.getEndTime()));
-        vLocation.setText("Location: " + mEvent.getLocation());
-
+        vStartTime.setText(Html.fromHtml("<b>Starts</b>: " + Utilities.getStringFromDate(mEvent.getStartTime())));
+        vEndTime.setText(Html.fromHtml("<b>Ends</b>: " + Utilities.getStringFromDate(mEvent.getEndTime())));
+        vLocation.setText(Html.fromHtml("<b>Location</b>: " + mEvent.getLocation()));
         setTitle(mEvent.getTitle());
     }
 }
