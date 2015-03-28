@@ -2,7 +2,7 @@ function postToParse() {
     var className = "Vote";
     var columns, mysheet;
     var counter = 0;
-    var spreadsheetUrl = "https://docs.google.com/spreadsheets/d/1uSyOVStMIWfegb5ZdxwX2-aVE5hZWrKkziH5MrB89s0/edit#gid=1862562745";
+    var spreadsheetUrl = "https://docs.google.com/spreadsheets/d/1pqa8cPmQfKVHYI4yn6iwopUXe446mWteantqFw9fBes/edit#gid=958855036";
 
     try {
         mysheet = SpreadsheetApp.openByUrl(spreadsheetUrl).getActiveSheet();
@@ -11,31 +11,38 @@ function postToParse() {
         var electionQueryParams = {
           "name": "Spring 2015"
         };
-        var electionPtr = parseQuery("Election", electionQueryParams)[0];
+        var resultFromElectionQuery = parseQuery("Election", electionQueryParams);
+        var electionPtr = resultFromElectionQuery[0];
+        var electionJson = {
+                              "__type": "Pointer",
+                              "className": "Election",
+                              "objectId": electionPtr.objectId
+        };
 
         for (i in columns) {
           row = columns[i];
-          var persons = ["person1", "person2"]; //TODO: get the names from spreadsheet
+          var persons = [row[1], row[2], row[3]]; 
+          var postedStatus = row[8];
           counter++;
           if( (postedStatus == "" || postedStatus == undefined) && counter > 1 )
           {
-            for (person in persons) {
+            for (k in persons) {
               var params = {
-                "election" : electionPtr,
-                "candidate" : person,
+                "election" : electionJson,
+                "candidate" : persons[k],
                 "position" : "Spring 2015 exec"
               };
               parseInsert(className, params);
             }
 
-            mysheet.getRange(counter, 10).setValue("Posted");
+            mysheet.getRange(counter, 9).setValue("Posted");
             //break;
           }
 
         }
     } catch (e) {
         if( mysheet )
-          mysheet.getRange(counter, 10).setValue("Failed");
+          mysheet.getRange(counter, 9).setValue(e.message);
     }
 }
 
