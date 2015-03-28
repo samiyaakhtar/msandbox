@@ -20,10 +20,16 @@ import com.uwmsa.msandbox.R;
 
 public class ForgotPasswordActivity extends ActionBarActivity {
 
+    EditText vEmailEditText;
+    Button vSubmitButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+
+        vEmailEditText = (EditText)findViewById(R.id.forgotPassword_emailTextField);
+        vSubmitButton = (Button) findViewById(R.id.forgotPassword_submitButton);
 
         setupButtonListeners();
     }
@@ -36,22 +42,11 @@ public class ForgotPasswordActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
     protected void setupButtonListeners() {
-        Button forgotPasswordButton = (Button) findViewById(R.id.forgotPassword_submitButton);
-        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+        vSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -59,7 +54,7 @@ public class ForgotPasswordActivity extends ActionBarActivity {
                 progressDialog.setMessage("Please wait...");
                 progressDialog.show();
 
-                String email = ((EditText)findViewById(R.id.forgotPassword_emailTextField)).getText().toString();
+                String email = vEmailEditText.getText().toString();
 
                 User.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
                     @Override

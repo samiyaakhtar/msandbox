@@ -2,8 +2,10 @@ package com.uwmsa.msandbox.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +20,29 @@ import com.uwmsa.msandbox.Models.User;
 
 public class SignupActivity extends ActionBarActivity {
 
+    EditText vUsernameEditText;
+    EditText vPasswordEditText;
+    EditText vConfirmPasswordEditText;
+    EditText vStudentIdEditText;
+    EditText vEmailEditText;
+    Button vSignupButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        vUsernameEditText = (EditText)findViewById(R.id.signup_usernameTextField);
+        vPasswordEditText = (EditText)findViewById(R.id.signup_passwordTextField);
+        vConfirmPasswordEditText = (EditText)findViewById(R.id.signup_confirmPasswordTextField);
+        vStudentIdEditText = (EditText)findViewById(R.id.signup_uwStudentIdTextField);
+        vEmailEditText = (EditText)findViewById(R.id.signup_emailAddressTextField);
+        vSignupButton = (Button) findViewById(R.id.signup_signupButton);
+
+        vPasswordEditText.setTypeface(Typeface.DEFAULT);
+        vPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
+        vConfirmPasswordEditText.setTypeface(Typeface.DEFAULT);
+        vConfirmPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
 
         setupButtonListeners();
     }
@@ -34,30 +55,16 @@ public class SignupActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
     protected void setupButtonListeners() {
-        Button signUpButton = (Button) findViewById(R.id.signup_signupButton);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        vSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String username = ((EditText)findViewById(R.id.signup_usernameTextField)).getText().toString();
-                String password = ((EditText)findViewById(R.id.signup_passwordTextField)).getText().toString();
-                String confirmPassword = ((EditText)findViewById(R.id.signup_confirmPasswordTextField)).getText().toString();
-                String uwStudentId = ((EditText)findViewById(R.id.signup_uwStudentIdTextField)).getText().toString();
-                String email = ((EditText)findViewById(R.id.signup_emailAddressTextField)).getText().toString();
+                String password = vPasswordEditText.getText().toString();
+                String confirmPassword = vConfirmPasswordEditText.getText().toString();
 
                 if(!confirmPassword.equals(password)) {
                     Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -72,10 +79,10 @@ public class SignupActivity extends ActionBarActivity {
                 progressDialog.show();
 
                 User newUser = new User();
-                newUser.setUsername(username);
+                newUser.setUsername(vUsernameEditText.getText().toString());
                 newUser.setPassword(password);
-                newUser.setUwStudentId(uwStudentId);
-                newUser.setEmail(email);
+                newUser.setUwStudentId(vStudentIdEditText.getText().toString());
+                newUser.setEmail(vEmailEditText.getText().toString());
 
                 newUser.signUpInBackground(new SignUpCallback() {
                     @Override

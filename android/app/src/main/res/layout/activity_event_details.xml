@@ -26,12 +26,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:id="@+id/eventDetails_title"
-                android:textColor="#000000"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
                 android:id="@+id/eventDetails_startTime"
                 android:textColor="#000000"/>
 
