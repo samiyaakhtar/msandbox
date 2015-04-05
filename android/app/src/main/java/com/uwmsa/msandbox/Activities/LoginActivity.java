@@ -76,7 +76,6 @@ public class LoginActivity extends ActionBarActivity {
 
                         if(parseUser != null) {
                             // Navigate to home screen of app
-//                            finish();
                             Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
                             LoginActivity.this.startActivity(newIntent);
                         }
