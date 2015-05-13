@@ -43,8 +43,24 @@ if r.status_code == 200:
 		print "\n"
 		print "Arabic hadith:\n" + "--------------\n" + cleanedHadith[i][1]
 		print "\n\n"
-	
-	
+
+with open("hadiths.txt", "a") as myfile:
+	text = ""
+	for i in range(0, len(cleanedHadith)):
+		if i+1 < 10:
+			text += "###\n"
+			text += "#" + str(i+1) + "#\n"
+			text +=  "###\n\n"
+		else:
+			text += "####\n"
+			text += "#" + str(i+1) + "#\n"
+			text += "####\n\n"
+		text += "English hadith:\n" + "---------------\n" + cleanedHadith[i][0]
+		text += "\n\n"
+		text += "Arabic hadith:\n" + "--------------\n" + cleanedHadith[i][1].decode('utf-8')
+		text += "\n\n\n\n"
+	text = text.encode('utf-8')
+	myfile.write(text)	
 
 # print h.unescape(hadith)
 # print urllib.unquote(hadith).decode('utf8') 
