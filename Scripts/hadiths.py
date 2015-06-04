@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import HTMLParser
+from openpyxl import Workbook
 # import urllib
 
 h = HTMLParser.HTMLParser()
@@ -44,6 +45,17 @@ if r.status_code == 200:
 		print "Arabic hadith:\n" + "--------------\n" + cleanedHadith[i][1]
 		print "\n\n"
 
+
+wb = Workbook()
+ws = wb.active
+
+for i in range(0, len(cleanedHadith)):
+	ws.append([i+1, cleanedHadith[i][0], cleanedHadith[i][1].decode('utf-8')])
+
+wb.save("hadiths.xlsx")
+
+
+'''
 with open("hadiths.txt", "a") as myfile:
 	text = ""
 	for i in range(0, len(cleanedHadith)):
@@ -61,6 +73,7 @@ with open("hadiths.txt", "a") as myfile:
 		text += "\n\n\n\n"
 	text = text.encode('utf-8')
 	myfile.write(text)	
+'''
 
 # print h.unescape(hadith)
 # print urllib.unquote(hadith).decode('utf8') 
