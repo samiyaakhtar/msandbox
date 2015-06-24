@@ -30,7 +30,7 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
     @Override
     public void onBindViewHolder(PrayerLocationJumuahRecyclerViewHolder holder, int position) {
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
-        String roomNumber = location.getRoomNumber();
+        String roomNumber = location.getBuilding();
         String description = location.getDescription();
 
         holder.vRoomNumber.setText(roomNumber);
@@ -54,7 +54,7 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
 
         public PrayerLocationJumuahRecyclerViewHolder(View v) {
             super(v);
-            vRoomNumber = (TextView) v.findViewById(R.id.prayerLocation_roomNumber);
+            vRoomNumber = (TextView) v.findViewById(R.id.prayerLocation_building);
             vDescription = (TextView) v.findViewById(R.id.prayerLocation_description);
             v.setOnClickListener(this);
         }

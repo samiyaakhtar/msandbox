@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.uwmsa.msandbox.Fragments.PrayerLocationDailyFragment;
 import com.uwmsa.msandbox.Fragments.PrayerLocationJumuahFragment;
@@ -19,7 +20,6 @@ public class PrayerLocationMainAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
             case 0:
                 return new PrayerLocationDailyFragment();

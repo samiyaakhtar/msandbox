@@ -43,6 +43,7 @@ public class PrayerLocationDailyFragment extends Fragment {
             mPrayerRoomRecyclerView.setLayoutManager(llm);
 
             getLocations();
+
         } catch (Exception ex) {
             Log.e("Error", ex.getMessage());
         }
