@@ -36,7 +36,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         String description = location.getDescription();
 
         holder.vBuilding.setText(building);
-        holder.vRoomNumber.setText(roomNumber);
+        holder.vRoomNumber.setText("- " + roomNumber);
         holder.vDescription.setText(description);
         holder.mLocation = location;
     }
@@ -50,6 +50,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         return new PrayerLocationDailyRecyclerViewHolder(itemView);
 
     }
+
 
     public class PrayerLocationDailyRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
