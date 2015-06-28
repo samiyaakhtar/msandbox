@@ -74,12 +74,12 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                 }
             } else {
                 Log.d("indexOf(location)", "" + locationsPresent.indexOf(location));
+                Log.d("UserCount", userPresent + " " + location.getUsercount());
                 if (locationsPresent.indexOf(location) != -1) {
                     holder.vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
                     holder.vButton.setTag(leaveNonEmptyLocation);
                     holder.vButton.setAlpha(0.85f);
                 } else {
-                    Log.d("UserCount", userPresent + " " + location.getUsercount());
                     if ((int) location.getUsercount() > 0) {
                         holder.vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
                         holder.vButton.setTag(joinNonEmptyLocation);
@@ -144,18 +144,26 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                 params.put("prayerLocationId", mLocation.getObjectId());
 
                 if(vButton.getTag() == joinEmptyLocation || vButton.getTag() == joinNonEmptyLocation) {
-                    ParseCloud.callFunctionInBackground("IncrementUserCount", params, new FunctionCallback<String>() {
-                        public void done(String result, ParseException e) {
+                    ParseCloud.callFunctionInBackground("IncrementUserCount", params, new FunctionCallback<PrayerRoomLocation>() {
+                        public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
-                                Log.d("RESPONSE", result);
+//                                Log.d("RESPONSE", result);
 
                                 //TODO: Add cloud logic to work with adding user to location
 //                                vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
 //                                vButton.setTag(leaveNonEmptyLocation);
 //                                vButton.setAlpha(0.85f);
-                                RefreshBuffer();
+                                try {
+                                    Thread.sleep(2000);
+                                    RefreshBuffer();
+                                    mLocation = result;
+                                    Log.d("ADD", "function called " + mLocation.getUsercount());
+                                } catch (InterruptedException err) {
+                                    err.printStackTrace();
+                                }
 
                             }
+
                         }
                     });
 
@@ -164,10 +172,10 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 //                    vButton.setAlpha(0.85f);
 
                 } else if ( vButton.getTag() == leaveNonEmptyLocation ) {
-                    ParseCloud.callFunctionInBackground("DecrementUserCount", params, new FunctionCallback<String>() {
-                        public void done(String result, ParseException e) {
+                    ParseCloud.callFunctionInBackground("DecrementUserCount", params, new FunctionCallback<PrayerRoomLocation>() {
+                        public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
-                                Log.d("RESPONSE", result);
+//                                Log.d("RESPONSE", result);
                                 //TODO: Add cloud logic to work with removing user to location
 //                                if( (int) mLocation.getUsercount() > 0 ) {
 //                                    vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
@@ -178,7 +186,14 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 //                                    vButton.setTag("addBlack");
 //                                    vButton.setAlpha(0.15f);
 //                                }
-                                RefreshBuffer();
+                                try {
+                                    Thread.sleep(2000);
+                                    RefreshBuffer();
+                                    mLocation = result;
+                                    Log.d("LEAVE", "function called " + mLocation.getUsercount());
+                                } catch (InterruptedException err) {
+                                    err.printStackTrace();
+                                }
                             }
                         }
                     });
