@@ -1,8 +1,5 @@
 package com.uwmsa.msandbox.Adapters;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,31 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.uwmsa.msandbox.Activities.MainActivity;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by dx179 on 3/27/15.
- */
 public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocationDailyAdapter.PrayerLocationDailyRecyclerViewHolder> {
 
     List<PrayerRoomLocation> prayerLocationDailyList;
-
     static final String joinEmptyLocation = "addBlack";
     static final String joinNonEmptyLocation = "addOrange";
     static final String leaveNonEmptyLocation = "removeOrange";
+    static final String joinSecondNonEmptyLocation = "addOrangeBlur";
+    static final String joinSecondEmptyLocation = "addBlackBlur";
+
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
@@ -50,7 +41,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     @Override
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
-//        Log.d("userPresent", userPresent + "");
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
@@ -62,7 +52,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
         if( userPresent != null ){
             if (!userPresent) {
-                Log.d("UserCount", userPresent + " " +location.getUsercount());
                 if ((int) location.getUsercount() > 0) {
                     holder.vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
                     holder.vButton.setTag(joinNonEmptyLocation);
@@ -70,11 +59,9 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                 } else {
                     holder.vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
                     holder.vButton.setTag(joinEmptyLocation);
-                    holder.vButton.setAlpha(0.15f);
+                    holder.vButton.setAlpha(0.25f);
                 }
             } else {
-                Log.d("indexOf(location)", "" + locationsPresent.indexOf(location));
-                Log.d("UserCount", userPresent + " " + location.getUsercount());
                 if (locationsPresent.indexOf(location) != -1) {
                     holder.vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
                     holder.vButton.setTag(leaveNonEmptyLocation);
@@ -82,11 +69,11 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                 } else {
                     if ((int) location.getUsercount() > 0) {
                         holder.vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
-                        holder.vButton.setTag(joinNonEmptyLocation);
-                        holder.vButton.setAlpha(0.85f);
+                        holder.vButton.setTag(joinSecondNonEmptyLocation);
+                        holder.vButton.setAlpha(0.65f);
                     } else {
                         holder.vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
-                        holder.vButton.setTag(joinEmptyLocation);
+                        holder.vButton.setTag(joinSecondEmptyLocation);
                         holder.vButton.setAlpha(0.15f);
                     }
                 }
@@ -147,69 +134,24 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                     ParseCloud.callFunctionInBackground("IncrementUserCount", params, new FunctionCallback<PrayerRoomLocation>() {
                         public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
-//                                Log.d("RESPONSE", result);
-
-                                //TODO: Add cloud logic to work with adding user to location
-//                                vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
-//                                vButton.setTag(leaveNonEmptyLocation);
-//                                vButton.setAlpha(0.85f);
-                                try {
-                                    Thread.sleep(2000);
-                                    RefreshBuffer();
-                                    mLocation = result;
-                                    Log.d("ADD", "function called " + mLocation.getUsercount());
-                                } catch (InterruptedException err) {
-                                    err.printStackTrace();
-                                }
-
+                                mLocation = result;
+                                RefreshBuffer();
                             }
-
                         }
                     });
-
-//                    vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
-//                    vButton.setTag(leaveNonEmptyLocation);
-//                    vButton.setAlpha(0.85f);
 
                 } else if ( vButton.getTag() == leaveNonEmptyLocation ) {
                     ParseCloud.callFunctionInBackground("DecrementUserCount", params, new FunctionCallback<PrayerRoomLocation>() {
                         public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
-//                                Log.d("RESPONSE", result);
-                                //TODO: Add cloud logic to work with removing user to location
-//                                if( (int) mLocation.getUsercount() > 0 ) {
-//                                    vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
-//                                    vButton.setTag("addOrange");
-//                                    vButton.setAlpha(0.85f);
-//                                } else {
-//                                    vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
-//                                    vButton.setTag("addBlack");
-//                                    vButton.setAlpha(0.15f);
-//                                }
-                                try {
-                                    Thread.sleep(2000);
-                                    RefreshBuffer();
-                                    mLocation = result;
-                                    Log.d("LEAVE", "function called " + mLocation.getUsercount());
-                                } catch (InterruptedException err) {
-                                    err.printStackTrace();
-                                }
+                                mLocation = result;
+                                RefreshBuffer();
                             }
                         }
                     });
-
-//                    if( (int) mLocation.getUsercount() > 1 ) {
-//                        vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
-//                        vButton.setTag("addOrange");
-//                        vButton.setAlpha(0.85f);
-//                    } else {
-//                        vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
-//                        vButton.setTag("addBlack");
-//                        vButton.setAlpha(0.15f);
-//                    }
+                } else {
+                    Log.d("ERR", "Different places");
                 }
-
-
 
             } else {
                 //TODO: Add fragment opening up MapView with location access codes, timings
@@ -232,7 +174,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                     for(Object i : result) {
                         ParseObject j = (ParseObject)i;
                         locationsPresent.add(j.getParseObject("PrayerRoomLocation"));
-                        Log.d("PARSEOBJECT", j.getParseObject("PrayerRoomLocation").getObjectId() );
                     }
                     notifyItemRangeChanged(0, getItemCount());
                 }
