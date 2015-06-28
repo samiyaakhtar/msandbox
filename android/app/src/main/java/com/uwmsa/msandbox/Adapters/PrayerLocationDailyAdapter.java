@@ -15,10 +15,13 @@ import android.widget.Toast;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.uwmsa.msandbox.Activities.MainActivity;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,19 +36,11 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     static final String joinNonEmptyLocation = "addOrange";
     static final String leaveNonEmptyLocation = "removeOrange";
     Boolean userPresent;
-
+    List<ParseObject> locationsPresent;
 
     public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations) {
         prayerLocationDailyList = locations;
-
-        ParseCloud.callFunctionInBackground("CheckUserPresent", new HashMap<String, Object>(), new FunctionCallback<String>() {
-            @Override
-            public void done(String result, ParseException e) {
-                if(e == null) {
-                    Log.d("RESULT", result);
-                }
-            }
-        });
+        RefreshBuffer();
     }
 
     @Override
@@ -55,6 +50,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     @Override
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
+//        Log.d("userPresent", userPresent + "");
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
@@ -64,14 +60,41 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         holder.vRoomNumber.setText("- " + roomNumber);
         holder.vDescription.setText(description);
 
-        if((int)location.getUsercount() > 0) {
-            holder.vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
-            holder.vButton.setTag(joinNonEmptyLocation);
-            holder.vButton.setAlpha(0.85f);
+        if( userPresent != null ){
+            if (!userPresent) {
+                Log.d("UserCount", userPresent + " " +location.getUsercount());
+                if ((int) location.getUsercount() > 0) {
+                    holder.vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
+                    holder.vButton.setTag(joinNonEmptyLocation);
+                    holder.vButton.setAlpha(0.85f);
+                } else {
+                    holder.vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
+                    holder.vButton.setTag(joinEmptyLocation);
+                    holder.vButton.setAlpha(0.15f);
+                }
+            } else {
+                Log.d("indexOf(location)", "" + locationsPresent.indexOf(location));
+                if (locationsPresent.indexOf(location) != -1) {
+                    holder.vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
+                    holder.vButton.setTag(leaveNonEmptyLocation);
+                    holder.vButton.setAlpha(0.85f);
+                } else {
+                    Log.d("UserCount", userPresent + " " + location.getUsercount());
+                    if ((int) location.getUsercount() > 0) {
+                        holder.vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
+                        holder.vButton.setTag(joinNonEmptyLocation);
+                        holder.vButton.setAlpha(0.85f);
+                    } else {
+                        holder.vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
+                        holder.vButton.setTag(joinEmptyLocation);
+                        holder.vButton.setAlpha(0.15f);
+                    }
+                }
+            }
         } else {
-            holder.vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
-            holder.vButton.setTag(joinEmptyLocation);
-            holder.vButton.setAlpha(0.15f);
+//            holder.vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
+//            holder.vButton.setTag(joinEmptyLocation);
+//            holder.vButton.setAlpha(0.15f);
         }
 
         //TODO: Add in vStatus functionality, implement logic on cloud
@@ -130,14 +153,15 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 //                                vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
 //                                vButton.setTag(leaveNonEmptyLocation);
 //                                vButton.setAlpha(0.85f);
+                                RefreshBuffer();
 
                             }
                         }
                     });
 
-                    vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
-                    vButton.setTag(leaveNonEmptyLocation);
-                    vButton.setAlpha(0.85f);
+//                    vButton.setBackgroundResource(R.drawable.ic_group_remove_orange_48dp);
+//                    vButton.setTag(leaveNonEmptyLocation);
+//                    vButton.setAlpha(0.85f);
 
                 } else if ( vButton.getTag() == leaveNonEmptyLocation ) {
                     ParseCloud.callFunctionInBackground("DecrementUserCount", params, new FunctionCallback<String>() {
@@ -154,23 +178,50 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 //                                    vButton.setTag("addBlack");
 //                                    vButton.setAlpha(0.15f);
 //                                }
+                                RefreshBuffer();
                             }
                         }
                     });
 
-                    if( (int) mLocation.getUsercount() > 1 ) {
-                        vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
-                        vButton.setTag("addOrange");
-                        vButton.setAlpha(0.85f);
-                    } else {
-                        vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
-                        vButton.setTag("addBlack");
-                        vButton.setAlpha(0.15f);
-                    }
-            }
+//                    if( (int) mLocation.getUsercount() > 1 ) {
+//                        vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
+//                        vButton.setTag("addOrange");
+//                        vButton.setAlpha(0.85f);
+//                    } else {
+//                        vButton.setBackgroundResource(R.drawable.ic_group_add_black_48dp);
+//                        vButton.setTag("addBlack");
+//                        vButton.setAlpha(0.15f);
+//                    }
+                }
+
+
+
             } else {
                 //TODO: Add fragment opening up MapView with location access codes, timings
             }
         }
+    }
+
+
+    public void RefreshBuffer() {
+        locationsPresent = new ArrayList<ParseObject>();
+        ParseCloud.callFunctionInBackground("CheckUserPresent", new HashMap<String, Object>(), new FunctionCallback<ArrayList>() {
+            @Override
+            public void done(ArrayList result, ParseException e) {
+                if(e == null) {
+                    if(result.size() > 0) {
+                        userPresent = true;
+                    } else
+                        userPresent = false;
+
+                    for(Object i : result) {
+                        ParseObject j = (ParseObject)i;
+                        locationsPresent.add(j.getParseObject("PrayerRoomLocation"));
+                        Log.d("PARSEOBJECT", j.getParseObject("PrayerRoomLocation").getObjectId() );
+                    }
+                    notifyItemRangeChanged(0, getItemCount());
+                }
+            }
+        });
     }
 }
