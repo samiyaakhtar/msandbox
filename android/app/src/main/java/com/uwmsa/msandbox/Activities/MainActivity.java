@@ -1,5 +1,8 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
+import com.uwmsa.msandbox.Adapters.PrayerLocationDailyAdapter;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
 import com.uwmsa.msandbox.Fragments.PlaceholderFragment;

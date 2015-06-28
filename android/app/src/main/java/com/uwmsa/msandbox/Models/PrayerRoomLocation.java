@@ -10,16 +10,19 @@ import com.parse.ParseObject;
 public class PrayerRoomLocation extends ParseObject {
     public static final String CLASSNAME = "PrayerRoomLocation";
     public static final String ROOMNUMBER = "roomNumber";
+    public static final String USERCOUNT = "userCount";
     public static final String BUILDING = "building";
     public static final String DESCRIPTION = "Description";
     public static final String TYPE = "type";
 
-    public PrayerRoomLocation() {
-
-    }
+    public PrayerRoomLocation() {    }
 
     public String getBuilding() {
         return getString(BUILDING);
+    }
+
+    public Number getUsercount() {
+        return getNumber(USERCOUNT);
     }
 
     public String getRoomnumber() {
