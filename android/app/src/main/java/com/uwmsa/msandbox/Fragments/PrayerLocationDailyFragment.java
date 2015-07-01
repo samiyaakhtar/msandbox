@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -43,6 +44,7 @@ public class PrayerLocationDailyFragment extends Fragment {
             mPrayerRoomRecyclerView.setLayoutManager(llm);
 
             getLocations();
+
         } catch (Exception ex) {
             Log.e("Error", ex.getMessage());
         }
