@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements OldNavigationDraw
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_appbar);
 
         try {
             ParseUser currentUser = ParseUser.getCurrentUser();
