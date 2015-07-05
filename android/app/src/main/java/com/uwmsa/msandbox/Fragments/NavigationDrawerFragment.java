@@ -32,7 +32,6 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
     private Boolean mUserUsedDrawer;
     private Boolean mFromSavedInstanceState;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +56,7 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
     }
 
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, Toolbar toolbar) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
 
         containerView = getActivity().findViewById(fragmentId);
         this.mDrawerLayout = drawerLayout;
@@ -69,7 +68,6 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment {
                     mUserUsedDrawer = true;
                     saveToPreferences(getActivity(), KEY_USER_USED_DRAWER, mUserUsedDrawer.toString());
                 }
-
                 getActivity().invalidateOptionsMenu();
             }
 

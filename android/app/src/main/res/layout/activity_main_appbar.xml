@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#000000">
 
     <include layout="@layout/toolbar_layout" />
 
@@ -12,7 +13,8 @@
         android:id="@+id/drawer_home_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.uwmsa.msandbox.Activities.HomeActivity">
+        tools:context="com.uwmsa.msandbox.Activities.HomeActivity"
+        android:background="#FFFFFF">
         <!-- As the main content view, the view below consumes the entire
              space available using match_parent in both dimensions. -->
         <FrameLayout

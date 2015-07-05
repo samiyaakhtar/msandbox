@@ -1,5 +1,6 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.parse.ParseUser;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
@@ -36,13 +38,14 @@ public class MainActivity extends ActionBarActivity implements OldNavigationDraw
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_appbar);
+
+        setContentView(R.layout.activity_main);
 
         try {
             ParseUser currentUser = ParseUser.getCurrentUser();
             if (currentUser != null) {
                 User cUser = (User) User.getCurrentUser();
-                if(cUser == null || !cUser.isAuthenticated()) {
+                if (cUser == null || !cUser.isAuthenticated()) {
                     Utilities.goToLoginScreen(this);
                 }
             } else {
@@ -55,13 +58,16 @@ public class MainActivity extends ActionBarActivity implements OldNavigationDraw
 //        mOldNavigationDrawerFragment = (OldNavigationDrawerFragment)
 //                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.main_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+
         mTitle = getTitle();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        navigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_home_layout), toolbar);
+        navigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_home_layout), toolbar);
 
         // Set up the drawer.
 //        mOldNavigationDrawerFragment.setUp(
@@ -70,6 +76,15 @@ public class MainActivity extends ActionBarActivity implements OldNavigationDraw
 
 //        ActionBar bar = getSupportActionBar();
 //        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4B9D8F")));
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @Override
@@ -129,12 +144,12 @@ public class MainActivity extends ActionBarActivity implements OldNavigationDraw
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        if (!mOldNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
+        // Only show items in the action bar relevant to this screen
+        // if the drawer is not showing. Otherwise, let the drawer
+        // decide what to show in the action bar.
+        getMenuInflater().inflate(R.menu.main, menu);
+        restoreActionBar();
+        return true;
 //        }
 //        return super.onCreateOptionsMenu(menu);
     }
