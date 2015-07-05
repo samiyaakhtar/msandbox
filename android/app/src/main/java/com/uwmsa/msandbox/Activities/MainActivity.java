@@ -1,36 +1,32 @@
 package com.uwmsa.msandbox.Activities;
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.parse.ParseUser;
-import com.uwmsa.msandbox.Adapters.PrayerLocationDailyAdapter;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
+import com.uwmsa.msandbox.Fragments.OldNavigationDrawerFragment;
 import com.uwmsa.msandbox.Fragments.PlaceholderFragment;
 import com.uwmsa.msandbox.Fragments.PrayerLocationMainFragment;
 import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.Utilities.*;
 import com.uwmsa.msandbox.R;
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends ActionBarActivity implements OldNavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private OldNavigationDrawerFragment mOldNavigationDrawerFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -56,14 +52,21 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             Log.e("Failed: ", ex.getMessage());
         }
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+//        mOldNavigationDrawerFragment = (OldNavigationDrawerFragment)
+//                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
         mTitle = getTitle();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        navigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_home_layout), toolbar);
 
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_home_layout));
+//        mOldNavigationDrawerFragment.setUp(
+//                R.id.navigation_drawer,
+//                (DrawerLayout) findViewById(R.id.drawer_home_layout));
 
 //        ActionBar bar = getSupportActionBar();
 //        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4B9D8F")));
@@ -125,15 +128,15 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+//        if (!mOldNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             return true;
-        }
-        return super.onCreateOptionsMenu(menu);
+//        }
+//        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
