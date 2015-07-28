@@ -1,5 +1,6 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.parse.ParseUser;
+import com.uwmsa.msandbox.Adapters.NavigationDrawerAdapter;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
 import com.uwmsa.msandbox.Fragments.OldNavigationDrawerFragment;
@@ -23,12 +25,12 @@ import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.Utilities.*;
 import com.uwmsa.msandbox.R;
 
-public class MainActivity extends ActionBarActivity implements OldNavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.ItemSelectionListener /*OldNavigationDrawerFragment.NavigationDrawerCallbacks*/ {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private OldNavigationDrawerFragment mOldNavigationDrawerFragment;
+//    private OldNavigationDrawerFragment mOldNavigationDrawerFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -68,7 +70,7 @@ public class MainActivity extends ActionBarActivity implements OldNavigationDraw
         NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         navigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_home_layout), toolbar);
-
+        navigationDrawerFragment.setItemSelectionListener(this);
         // Set up the drawer.
 //        mOldNavigationDrawerFragment.setUp(
 //                R.id.navigation_drawer,
@@ -87,8 +89,16 @@ public class MainActivity extends ActionBarActivity implements OldNavigationDraw
         return result;
     }
 
+
+
+//    @Override
+//    public void ItemClicked(int position) {
+//        startActivity(new Intent(getActivity(), LoginActivity.class));
+//    }
+
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
+//    public void onNavigationDrawerItemSelected(int position) {
+    public void ItemSelected(int position) {
         // update the main content by replacing fragments
         Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();

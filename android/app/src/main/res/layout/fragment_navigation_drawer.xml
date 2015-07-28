@@ -6,8 +6,23 @@
     tools:context="com.uwmsa.msandbox.Fragments.NavigationDrawerFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:text="Hello"/>-->
+    <ImageView
+        android:id="@+id/navbar_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="@dimen/navigation_drawer_image_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/navbar_bgb" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navbar_drawer_list"
+        android:layout_below="@id/navbar_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
 
 </RelativeLayout>
