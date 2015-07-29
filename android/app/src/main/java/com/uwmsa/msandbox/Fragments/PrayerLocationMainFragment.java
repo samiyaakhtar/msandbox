@@ -68,12 +68,12 @@ public class PrayerLocationMainFragment extends Fragment implements ActionBar.Ta
         mAdapter = new PrayerLocationMainAdapter(getActivity().getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
-        actionBar.removeAllTabs();
-        for(String tab_name: tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
-        }
+//        actionBar.removeAllTabs();
+//        for(String tab_name: tabs) {
+//            actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
+//        }
 
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

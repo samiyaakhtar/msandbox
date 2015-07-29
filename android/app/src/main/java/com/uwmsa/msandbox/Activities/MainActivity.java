@@ -2,6 +2,8 @@ package com.uwmsa.msandbox.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -25,7 +27,7 @@ import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.Utilities.*;
 import com.uwmsa.msandbox.R;
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.ItemSelectionListener /*OldNavigationDrawerFragment.NavigationDrawerCallbacks*/ {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.ItemSelectionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -100,8 +102,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 //    public void onNavigationDrawerItemSelected(int position) {
     public void ItemSelected(int position) {
         // update the main content by replacing fragments
-        Fragment fragment;
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        final Fragment fragment;
+        final FragmentManager fragmentManager = getSupportFragmentManager();
         ActionBar actionBar = getSupportActionBar();
 
 
@@ -114,7 +116,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 break;
             case PRAYER_LOCATIONS:
                 fragment = PrayerLocationMainFragment.newInstance(position);
-                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 break;
             case HOME:
             default:
@@ -122,9 +124,18 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 fragment = PlaceholderFragment.newInstance(position);
                 break;
         }
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .commit();
+            }
+
+        }, 250);
 
     }
 
