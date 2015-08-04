@@ -14,6 +14,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
+import com.uwmsa.msandbox.Utilities.AnimateUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,9 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
 
     @Override
     public void onBindViewHolder(PrayerLocationJumuahRecyclerViewHolder holder, int position) {
+
+        AnimateUtils.animate(holder);
+
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();

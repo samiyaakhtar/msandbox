@@ -1,5 +1,6 @@
 package com.uwmsa.msandbox.Adapters;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
+import com.uwmsa.msandbox.Utilities.AnimateUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +32,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
+
     public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations) {
         prayerLocationDailyList = locations;
         RefreshBuffer();
@@ -41,6 +45,9 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     @Override
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
+
+        AnimateUtils.animate(holder);
+
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
@@ -87,6 +94,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         //TODO: Add in vStatus functionality, implement logic on cloud
 
         holder.mLocation = location;
+
     }
 
     @Override
