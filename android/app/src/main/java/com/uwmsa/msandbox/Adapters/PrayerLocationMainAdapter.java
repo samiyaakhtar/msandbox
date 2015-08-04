@@ -3,6 +3,7 @@ package com.uwmsa.msandbox.Adapters;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
@@ -14,8 +15,15 @@ import com.uwmsa.msandbox.Fragments.PrayerLocationJumuahFragment;
  */
 public class PrayerLocationMainAdapter extends FragmentStatePagerAdapter {
 
+    private String[] tabs = { "Daily", "Jumuah" };
+
     public PrayerLocationMainAdapter(FragmentManager fm) {
         super(fm);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabs[position];
     }
 
     @Override

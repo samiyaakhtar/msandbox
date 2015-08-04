@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             @Override
             public void run() {
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, fragment)
+                        .replace(R.id.container_layout, fragment)
                         .commit();
             }
 
