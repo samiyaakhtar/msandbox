@@ -78,7 +78,7 @@ public class PrayerLocationMainFragment extends Fragment implements ActionBar.Ta
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
+//                actionBar.setSelectedNavigationItem(position);
             }
 
             @Override
