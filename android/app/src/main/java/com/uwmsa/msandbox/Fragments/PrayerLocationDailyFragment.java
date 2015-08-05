@@ -31,6 +31,11 @@ public class PrayerLocationDailyFragment extends Fragment implements SwipeRefres
     private RecyclerView mPrayerRoomRecyclerView;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    boolean constructorCalled;
+
+    public PrayerLocationDailyFragment() {
+        constructorCalled = true;
+    }
 
     @Nullable
     @Override
@@ -63,7 +68,9 @@ public class PrayerLocationDailyFragment extends Fragment implements SwipeRefres
             @Override
             public void done(List<PrayerRoomLocation> prayerRoomLocations, ParseException e) {
                 if (e == null) {
-                    PrayerLocationDailyAdapter adapter = new PrayerLocationDailyAdapter(prayerRoomLocations);
+                    Log.d("IsRefreshing", mSwipeRefreshLayout.isRefreshing() + "");
+                    PrayerLocationDailyAdapter adapter = new PrayerLocationDailyAdapter(prayerRoomLocations, mSwipeRefreshLayout.isRefreshing() || constructorCalled);
+                    constructorCalled = false;
                     mPrayerRoomRecyclerView.setAdapter(adapter);
                     if(mSwipeRefreshLayout.isRefreshing())
                         mSwipeRefreshLayout.setRefreshing(false);

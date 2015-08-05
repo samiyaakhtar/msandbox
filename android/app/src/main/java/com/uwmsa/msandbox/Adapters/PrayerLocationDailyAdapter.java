@@ -1,5 +1,6 @@
 package com.uwmsa.msandbox.Adapters;
 
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,13 +30,16 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     static final String joinSecondNonEmptyLocation = "addOrangeBlur";
     static final String joinSecondEmptyLocation = "addBlackBlur";
 
+    private boolean fromRefresh;
+
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
 
-    public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations) {
+    public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
         prayerLocationDailyList = locations;
-        RefreshBuffer();
+        this.fromRefresh = fromRefresh;
+        RefreshBuffer(true);
     }
 
     @Override
@@ -45,9 +49,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     @Override
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
-
-        AnimateUtils.animate(holder);
-
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
@@ -94,7 +95,10 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         //TODO: Add in vStatus functionality, implement logic on cloud
 
         holder.mLocation = location;
+        Log.d("fromRefresh", fromRefresh + "");
 
+        if(fromRefresh)
+            AnimateUtils.animate(holder);
     }
 
     @Override
@@ -102,7 +106,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         View itemView = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.prayer_room_card, parent, false);
-
         return new PrayerLocationDailyRecyclerViewHolder(itemView);
 
     }
@@ -143,7 +146,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                         public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
                                 mLocation = result;
-                                RefreshBuffer();
+                                RefreshBuffer(false);
                             }
                         }
                     });
@@ -153,7 +156,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
                         public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
                                 mLocation = result;
-                                RefreshBuffer();
+                                RefreshBuffer(false);
                             }
                         }
                     });
@@ -168,7 +171,10 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     }
 
 
-    public void RefreshBuffer() {
+    public void RefreshBuffer(boolean fromConstructor) {
+        Log.d("called", "refresh buffer");
+        if(!fromConstructor)
+            fromRefresh = false;
         locationsPresent = new ArrayList<ParseObject>();
         ParseCloud.callFunctionInBackground("CheckUserPresent", new HashMap<String, Object>(), new FunctionCallback<ArrayList>() {
             @Override
