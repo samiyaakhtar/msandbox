@@ -28,6 +28,12 @@ public class PrayerLocationJumuahFragment extends Fragment implements SwipeRefre
     private RecyclerView mPrayerRoomRecyclerView;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    boolean constructorCalled;
+
+    public PrayerLocationJumuahFragment() {
+        constructorCalled = true;
+    }
+
 
     @Nullable
     @Override
@@ -59,7 +65,8 @@ public class PrayerLocationJumuahFragment extends Fragment implements SwipeRefre
             @Override
             public void done(List<PrayerRoomLocation> prayerRoomLocations, ParseException e) {
                 if (e == null) {
-                    PrayerLocationJumuahAdapter adapter = new PrayerLocationJumuahAdapter(prayerRoomLocations);
+                    PrayerLocationJumuahAdapter adapter = new PrayerLocationJumuahAdapter(prayerRoomLocations, mSwipeRefreshLayout.isRefreshing() || constructorCalled);
+                    constructorCalled = false;
                     mPrayerRoomRecyclerView.setAdapter(adapter);
                     if(mSwipeRefreshLayout.isRefreshing())
                         mSwipeRefreshLayout.setRefreshing(false);

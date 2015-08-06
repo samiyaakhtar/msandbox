@@ -16,13 +16,13 @@ public class AnimateUtils {
     public static void animate(PrayerLocationDailyRecyclerViewHolder holder) {
 
             YoYo.with(Techniques.FadeInLeft)
-                    .duration(2000)
+                    .duration(1000)
                     .playOn(holder.itemView);
     }
 
     public static void animate(PrayerLocationJumuahRecyclerViewHolder holder) {
         YoYo.with(Techniques.FadeInLeft)
-                .duration(500)
+                .duration(1000)
                 .playOn(holder.itemView);
     }
 }

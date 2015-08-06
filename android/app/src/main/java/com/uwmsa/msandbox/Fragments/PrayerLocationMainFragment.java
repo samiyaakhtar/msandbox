@@ -29,10 +29,7 @@ public class PrayerLocationMainFragment extends Fragment {
     private ViewPager viewPager;
     private PrayerLocationMainAdapter mAdapter;
     private ActionBar actionBar;
-    private SlidingTabLayout mTabs;
-
-    // Tab titles
-
+    public MaterialTabs tabs;
     public static PrayerLocationMainFragment newInstance(int sectionNumber) {
         PrayerLocationMainFragment fragment = new PrayerLocationMainFragment();
         Bundle args = new Bundle();
@@ -50,34 +47,14 @@ public class PrayerLocationMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_prayer_location_main, container, false);
 
-
         viewPager = (ViewPager) view.findViewById(R.id.prayerRoomLocation_viewPager);
-        mTabs = (SlidingTabLayout) view.findViewById(R.id.tabs);
-        mTabs.setDistributeEvenly(true);
-        mTabs.setBackgroundColor(getResources().getColor(R.color.primary));
-        mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.accent);
-            }
-        });
-
-        MaterialTabs tabs = (MaterialTabs) view.findViewById(R.id.material_tabs);
-
-        actionBar = ((MainActivity)getActivity()).getSupportActionBar();
-        mAdapter = new PrayerLocationMainAdapter(getActivity().getSupportFragmentManager());
+        tabs = (MaterialTabs) view.findViewById(R.id.material_tabs);
+        mAdapter = new PrayerLocationMainAdapter(getActivity().getSupportFragmentManager(), tabs);
         viewPager.setAdapter(mAdapter);
         tabs.setViewPager(viewPager);
-//        mTabs.setViewPager(viewPager);
-        return view;
 
-//
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-//        actionBar.removeAllTabs();
-//        for(String tab_name: tabs) {
-//            actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
-//        }
+
+        return view;
     }
 
     @Override

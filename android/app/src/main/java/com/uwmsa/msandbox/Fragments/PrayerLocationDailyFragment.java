@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,6 +24,8 @@ import com.uwmsa.msandbox.R;
 
 import java.util.List;
 
+import io.karim.MaterialTabs;
+
 /**
  * Created by dx179 on 3/27/15.
  */
@@ -31,6 +34,7 @@ public class PrayerLocationDailyFragment extends Fragment implements SwipeRefres
     private RecyclerView mPrayerRoomRecyclerView;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private MaterialTabs tabs;
     boolean constructorCalled;
 
     public PrayerLocationDailyFragment() {
@@ -60,7 +64,6 @@ public class PrayerLocationDailyFragment extends Fragment implements SwipeRefres
         return rootView;
     }
 
-
     private void getLocations() {
         ParseQuery<PrayerRoomLocation> query = ParseQuery.getQuery(PrayerRoomLocation.class);
         query.whereEqualTo(PrayerRoomLocation.TYPE, "Daily");
@@ -68,7 +71,6 @@ public class PrayerLocationDailyFragment extends Fragment implements SwipeRefres
             @Override
             public void done(List<PrayerRoomLocation> prayerRoomLocations, ParseException e) {
                 if (e == null) {
-                    Log.d("IsRefreshing", mSwipeRefreshLayout.isRefreshing() + "");
                     PrayerLocationDailyAdapter adapter = new PrayerLocationDailyAdapter(prayerRoomLocations, mSwipeRefreshLayout.isRefreshing() || constructorCalled);
                     constructorCalled = false;
                     mPrayerRoomRecyclerView.setAdapter(adapter);

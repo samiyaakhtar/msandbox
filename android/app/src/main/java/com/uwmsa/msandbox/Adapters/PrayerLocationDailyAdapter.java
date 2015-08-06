@@ -35,7 +35,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
-
     public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
         prayerLocationDailyList = locations;
         this.fromRefresh = fromRefresh;
@@ -49,6 +48,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     @Override
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
+
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
@@ -95,7 +95,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         //TODO: Add in vStatus functionality, implement logic on cloud
 
         holder.mLocation = location;
-        Log.d("fromRefresh", fromRefresh + "");
 
         if(fromRefresh)
             AnimateUtils.animate(holder);
