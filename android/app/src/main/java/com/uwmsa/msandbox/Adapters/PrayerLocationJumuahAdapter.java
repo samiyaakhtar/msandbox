@@ -47,7 +47,7 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
 
     @Override
     public void onBindViewHolder(PrayerLocationJumuahRecyclerViewHolder holder, int position) {
-        
+
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();

@@ -28,6 +28,7 @@ import com.uwmsa.msandbox.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,14 +80,6 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-//        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                selectItem(position);
-//            }
-//        });
-
         return layout;
     }
 
@@ -113,6 +106,7 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
 
         containerView = getActivity().findViewById(fragmentId);
         this.mDrawerLayout = drawerLayout;
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -158,10 +152,18 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
     }
 
     @Override
-    public void ItemClicked(int position) {
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        if(itemSelectionListener!= null)
-            itemSelectionListener.ItemSelected(position);
+    public void ItemClicked(final int position) {
+        android.os.Handler handler = new android.os.Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                if(itemSelectionListener!= null)
+                    itemSelectionListener.ItemSelected(position);
+            }
+
+        }, 800);
     }
 
     public interface ItemSelectionListener {

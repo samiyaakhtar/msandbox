@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.uwmsa.msandbox.Adapters.EventAdapter;
 import com.uwmsa.msandbox.Adapters.PrayerLocationDailyAdapter.*;
 import com.uwmsa.msandbox.Adapters.PrayerLocationJumuahAdapter.*;
 import com.uwmsa.msandbox.R;
@@ -14,15 +15,20 @@ import com.uwmsa.msandbox.R;
  */
 public class AnimateUtils {
     public static void animate(PrayerLocationDailyRecyclerViewHolder holder) {
-
-            YoYo.with(Techniques.FadeInLeft)
-                    .duration(1000)
-                    .playOn(holder.itemView);
+        YoYo.with(Techniques.FadeInUp)
+                .duration(800)
+                .playOn(holder.itemView);
     }
 
     public static void animate(PrayerLocationJumuahRecyclerViewHolder holder) {
-        YoYo.with(Techniques.FadeInLeft)
-                .duration(1000)
+        YoYo.with(Techniques.FadeInUp)
+                .duration(800)
+                .playOn(holder.itemView);
+    }
+
+    public static void animate(EventAdapter.EventRecyclerViewHolder holder) {
+        YoYo.with(Techniques.FadeInUp)
+                .duration(800)
                 .playOn(holder.itemView);
     }
 }

@@ -86,6 +86,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<RecyclerView.V
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.navigation_option_text);
             imageView = (ImageView) itemView.findViewById(R.id.navigation_option_image);
+            textView.setOnClickListener(this);
             imageView.setOnClickListener(this);
         }
 
