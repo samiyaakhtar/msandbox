@@ -14,14 +14,12 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
+import com.uwmsa.msandbox.Utilities.AnimateUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by dx179 on 3/27/15.
- */
 public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLocationJumuahAdapter.PrayerLocationJumuahRecyclerViewHolder> {
 
     List<PrayerRoomLocation> prayerLocationDailyList;
@@ -31,12 +29,15 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
     static final String joinSecondNonEmptyLocation = "addOrangeBlur";
     static final String joinSecondEmptyLocation = "addBlackBlur";
 
+    private boolean fromRefresh;
+
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
-    public PrayerLocationJumuahAdapter(List<PrayerRoomLocation> locations) {
+    public PrayerLocationJumuahAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
+        this.fromRefresh = fromRefresh;
         prayerLocationDailyList = locations;
-        RefreshBuffer();
+        RefreshBuffer(true);
     }
 
     @Override
@@ -46,6 +47,7 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
 
     @Override
     public void onBindViewHolder(PrayerLocationJumuahRecyclerViewHolder holder, int position) {
+
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
         String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
@@ -92,6 +94,9 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
         //TODO: Add in vStatus functionality, implement logic on cloud
 
         holder.mLocation = location;
+
+        if(fromRefresh)
+            AnimateUtils.animate(holder);
     }
 
     @Override
@@ -135,7 +140,7 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
                         public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
                                 mLocation = result;
-                                RefreshBuffer();
+                                RefreshBuffer(false);
                             }
                         }
                     });
@@ -145,7 +150,7 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
                         public void done(PrayerRoomLocation result, ParseException e) {
                             if (e == null) {
                                 mLocation = result;
-                                RefreshBuffer();
+                                RefreshBuffer(false);
                             }
                         }
                     });
@@ -159,7 +164,10 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
         }
     }
 
-    public void RefreshBuffer() {
+    public void RefreshBuffer(boolean fromConstructor) {
+
+        if(!fromConstructor)
+            fromRefresh = false;
         locationsPresent = new ArrayList<ParseObject>();
         ParseCloud.callFunctionInBackground("CheckUserPresent", new HashMap<String, Object>(), new FunctionCallback<ArrayList>() {
             @Override

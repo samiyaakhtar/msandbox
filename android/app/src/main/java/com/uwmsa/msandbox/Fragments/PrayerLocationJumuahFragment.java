@@ -3,6 +3,7 @@ package com.uwmsa.msandbox.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,17 +23,25 @@ import java.util.List;
 /**
  * Created by dx179 on 3/27/15.
  */
-public class PrayerLocationJumuahFragment extends Fragment {
+public class PrayerLocationJumuahFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mPrayerRoomRecyclerView;
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    boolean constructorCalled;
+
+    public PrayerLocationJumuahFragment() {
+        constructorCalled = true;
+    }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_prayer_location_daily, container, false);
-
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refreshDaily);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         try {
             mPrayerRoomRecyclerView = (RecyclerView) rootView.findViewById(R.id.prayerRooms_recyclerView);
             mPrayerRoomRecyclerView.setHasFixedSize(true);
@@ -56,8 +65,11 @@ public class PrayerLocationJumuahFragment extends Fragment {
             @Override
             public void done(List<PrayerRoomLocation> prayerRoomLocations, ParseException e) {
                 if (e == null) {
-                    PrayerLocationJumuahAdapter adapter = new PrayerLocationJumuahAdapter(prayerRoomLocations);
+                    PrayerLocationJumuahAdapter adapter = new PrayerLocationJumuahAdapter(prayerRoomLocations, mSwipeRefreshLayout.isRefreshing() || constructorCalled);
+                    constructorCalled = false;
                     mPrayerRoomRecyclerView.setAdapter(adapter);
+                    if(mSwipeRefreshLayout.isRefreshing())
+                        mSwipeRefreshLayout.setRefreshing(false);
                 } else {
                     // TODO: handle error
                 }
@@ -65,4 +77,8 @@ public class PrayerLocationJumuahFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onRefresh() {
+        getLocations();
+    }
 }

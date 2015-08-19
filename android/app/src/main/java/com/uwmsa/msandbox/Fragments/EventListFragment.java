@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,13 +25,15 @@ import com.uwmsa.msandbox.R;
 
 import java.util.List;
 
-public class EventListFragment extends Fragment implements EventAdapter.OnEventClickListener {
+public class EventListFragment extends Fragment implements EventAdapter.OnEventClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 
     /**
      * Used to display events in a list of cards
      */
     private RecyclerView mEventRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    boolean constructorCalled;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -43,7 +47,7 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
     }
 
     public EventListFragment() {
-        // Required empty public constructor
+        this.constructorCalled = true;
     }
 
     public void fillEventsRecyclerView() {
@@ -56,9 +60,11 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                EventAdapter eventAdapter = new EventAdapter(events);
+                EventAdapter eventAdapter = new EventAdapter(events,  mSwipeRefreshLayout.isRefreshing() || constructorCalled);
                 eventAdapter.setOnEventClickListener(EventListFragment.this);
                 mEventRecyclerView.setAdapter(eventAdapter);
+                if(mSwipeRefreshLayout.isRefreshing())
+                    mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -70,14 +76,23 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_event_list,
                 container, false);
-
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshEvent);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         // Set up the event recycler view
         try {
             mEventRecyclerView = (RecyclerView) view.findViewById(R.id.main_eventRecyclerView);
             mEventRecyclerView.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getActivity());
             llm.setOrientation(LinearLayoutManager.VERTICAL);
-            mEventRecyclerView.setLayoutManager(llm);
+
+            GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
+            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return (3 - position % 3);
+                }
+            });
+            mEventRecyclerView.setLayoutManager(manager);
 
             fillEventsRecyclerView();
         } catch (Exception ex) {
@@ -102,5 +117,10 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
         Intent eventDetailsIntent = new Intent(getActivity(), EventDetailsActivity.class);
         eventDetailsIntent.putExtra("eventObjectId", event.getObjectId());
         getActivity().startActivity(eventDetailsIntent);
+    }
+
+    @Override
+    public void onRefresh() {
+        fillEventsRecyclerView();
     }
 }

@@ -16,6 +16,7 @@ import com.parse.ParseImageView;
 import com.parse.SaveCallback;
 import com.uwmsa.msandbox.Models.*;
 import com.uwmsa.msandbox.R;
+import com.uwmsa.msandbox.Utilities.AnimateUtils;
 import com.uwmsa.msandbox.Utilities.Utilities;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ import java.util.List;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventRecyclerViewHolder>  {
 
     private OnEventClickListener mOnClickListener;
+    private boolean fromRefresh;
 
     public static interface OnEventClickListener {
         void OnEventClickListener(final Event event);
@@ -97,8 +99,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventRecycle
 
     private List<Event> eventList;
 
-    public EventAdapter(List<Event> listItems) {
+    public EventAdapter(List<Event> listItems, boolean fromRefresh) {
         this.eventList = listItems;
+        this.fromRefresh = fromRefresh;
     }
 
     @Override
@@ -121,6 +124,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventRecycle
         eventViewHolder.vImageView.loadInBackground();
 
         eventViewHolder.setEvent(event);
+
+        if(fromRefresh)
+            AnimateUtils.animate(eventViewHolder);
     }
 
     @Override
