@@ -58,7 +58,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         holder.vRoomNumber.setText("- " + roomNumber);
         holder.vDescription.setText(description);
 
-        if( userPresent != null ){
+        if( userPresent != null ) {
             if (!userPresent) {
                 if ((int) location.getUsercount() > 0) {
                     holder.vButton.setBackgroundResource(R.drawable.ic_group_add_orange_48dp);
@@ -96,8 +96,9 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
         holder.mLocation = location;
 
-        if(fromRefresh)
+        if(fromRefresh) {
             AnimateUtils.animate(holder);
+        }
     }
 
     @Override
@@ -172,20 +173,23 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     public void RefreshBuffer(boolean fromConstructor) {
         Log.d("called", "refresh buffer");
-        if(!fromConstructor)
+
+        if(!fromConstructor) {
             fromRefresh = false;
+        }
+
         locationsPresent = new ArrayList<ParseObject>();
         ParseCloud.callFunctionInBackground("CheckUserPresent", new HashMap<String, Object>(), new FunctionCallback<ArrayList>() {
             @Override
             public void done(ArrayList result, ParseException e) {
-                if(e == null) {
-                    if(result.size() > 0) {
+                if (e == null) {
+                    userPresent = false;
+                    if (result.size() > 0) {
                         userPresent = true;
-                    } else
-                        userPresent = false;
+                    }
 
-                    for(Object i : result) {
-                        ParseObject j = (ParseObject)i;
+                    for (Object i : result) {
+                        ParseObject j = (ParseObject) i;
                         locationsPresent.add(j.getParseObject("PrayerRoomLocation"));
                     }
                     notifyItemRangeChanged(0, getItemCount());

@@ -49,11 +49,8 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof NavigationDrawerHeaderHolder)
+        if(!(holder instanceof NavigationDrawerHeaderHolder))
         {
-
-        }
-        else {
             NavigationDrawerItemHolder itemHolder = (NavigationDrawerItemHolder) holder;
             NavigationBarOption currentOption = data.get(position - 1);
             itemHolder.textView.setText(currentOption.title);
@@ -92,8 +89,9 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         @Override
         public void onClick(View v) {
-            if(clickListener != null)
+            if(clickListener != null) {
                 clickListener.ItemClicked(getPosition() - 1);
+            }
         }
     }
 

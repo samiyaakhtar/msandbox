@@ -34,7 +34,7 @@ public class PrayerLocationMainAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return  new PrayerLocationDailyFragment();
+                return new PrayerLocationDailyFragment();
             case 1:
                 return new PrayerLocationJumuahFragment();
             default:
