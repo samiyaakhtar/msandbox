@@ -15,6 +15,8 @@ import java.util.Date;
  * Created by dx179 on 3/24/15.
  */
 public class Utilities {
+    public static Activity mainActivity;
+
     public enum NAVIGATION_DRAWER_ITEMS {
         HOME, EVENTS, PRAYER_LOCATIONS
     }
@@ -24,8 +26,9 @@ public class Utilities {
     }
 
     public static void goToLoginScreen(Activity currentActivity) {
-        Intent loginIntent = new Intent(currentActivity, LoginActivity.class);
-        currentActivity.startActivity(loginIntent);
+        mainActivity = currentActivity;
+        Intent loginIntent = new Intent(mainActivity, LoginActivity.class);
+        mainActivity.startActivityForResult(loginIntent, 0);
     }
 
     public static String getStringFromDate(Date date) {

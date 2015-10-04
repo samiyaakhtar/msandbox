@@ -159,4 +159,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        finish();
+    }
 }
