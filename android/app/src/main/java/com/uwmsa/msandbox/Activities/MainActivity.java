@@ -19,6 +19,7 @@ import android.view.View;
 import com.parse.ParseUser;
 import com.uwmsa.msandbox.Adapters.NavigationDrawerAdapter;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
+import com.uwmsa.msandbox.Fragments.HomeFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
 import com.uwmsa.msandbox.Fragments.PlaceholderFragment;
 import com.uwmsa.msandbox.Fragments.PrayerLocationMainFragment;
@@ -91,6 +92,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 break;
             case HOME:
+                fragment = HomeFragment.newInstance(position);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                break;
             default:
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 fragment = PlaceholderFragment.newInstance(position);
