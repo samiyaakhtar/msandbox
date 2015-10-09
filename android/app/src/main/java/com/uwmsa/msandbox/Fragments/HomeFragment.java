@@ -43,11 +43,16 @@ public class HomeFragment extends Fragment {
     private static final String PREF_FILE_NAME = "userprefs";
     private final String PRAYER_TIMES_LABEL = "PrayerTimes";
 
-    private TextView fajrTime;
-    private TextView dhuhrTime;
-    private TextView asrTime;
-    private TextView maghribTime;
-    private TextView ishaTime;
+    private TextView fajrIqamahTime;
+    private TextView dhuhrIqamahTime;
+    private TextView asrIqamahTime;
+    private TextView maghribIqamahTime;
+    private TextView ishaIqamahTime;
+    private TextView fajrStartTime;
+    private TextView dhuhrStartTime;
+    private TextView asrStartTime;
+    private TextView maghribStartTime;
+    private TextView ishaStartTime;
     private ParseObject prayerTime;
 
     private Context context;
@@ -70,11 +75,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View homeView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        fajrTime = (TextView) homeView.findViewById(R.id.fajrTime);
-        dhuhrTime = (TextView) homeView.findViewById(R.id.dhuhrTime);
-        asrTime = (TextView) homeView.findViewById(R.id.asrTime);
-        maghribTime = (TextView) homeView.findViewById(R.id.maghribTime);
-        ishaTime = (TextView) homeView.findViewById(R.id.ishaTime);
+        fajrIqamahTime = (TextView) homeView.findViewById(R.id.fajrIqamahTime);
+        dhuhrIqamahTime = (TextView) homeView.findViewById(R.id.dhuhrIqamahTime);
+        asrIqamahTime = (TextView) homeView.findViewById(R.id.asrIqamahTime);
+        maghribIqamahTime = (TextView) homeView.findViewById(R.id.maghribIqamahTime);
+        ishaIqamahTime = (TextView) homeView.findViewById(R.id.ishaIqamahTime);
+        fajrStartTime = (TextView) homeView.findViewById(R.id.fajrStartTime);
+        dhuhrStartTime = (TextView) homeView.findViewById(R.id.dhuhrStartTime);
+        asrStartTime = (TextView) homeView.findViewById(R.id.asrStartTime);
+        maghribStartTime = (TextView) homeView.findViewById(R.id.maghribStartTime);
+        ishaStartTime = (TextView) homeView.findViewById(R.id.ishaStartTime);
 
         context = getActivity();
         prefs = context.getSharedPreferences(PREF_FILE_NAME, context.MODE_PRIVATE);
@@ -130,7 +140,7 @@ public class HomeFragment extends Fragment {
             ParseQuery query = new ParseQuery("PrayerTimes");
             query.setLimit(365);
             query.whereContainedIn("date", formattedDays);
-            query.fromLocalDatastore();
+            // query.fromLocalDatastore();
             query.findInBackground(new FindCallback() {
                 @Override
                 public void done(final List list, ParseException e) {
@@ -174,8 +184,14 @@ public class HomeFragment extends Fragment {
     public JSONObject processParsePrayerTimeToJSON(ParseObject prayerTime) {
         JSONObject storeAsJson = new JSONObject();
         JSONObject eqamaTime = prayerTime.getJSONObject("eqama");
+        JSONObject startTime = prayerTime.getJSONObject("beginning");
         try {
             storeAsJson.put("date", prayerTime.getString("date"));
+            storeAsJson.put("fajrStart", startTime.getString("fajr"));
+            storeAsJson.put("dhuhrStart", startTime.getString("dhuhr"));
+            storeAsJson.put("asrStart", startTime.getString("asr"));
+            storeAsJson.put("maghribStart", startTime.getString("maghrib"));
+            storeAsJson.put("ishaStart", startTime.getString("isha"));
             storeAsJson.put("fajrIqamah", eqamaTime.getString("fajr"));
             List<String> dhuhrList = Arrays.asList(eqamaTime.getString("dhuhr").split(","));
             storeAsJson.put("dhuhrIqamah", dhuhrList.get(0));
@@ -191,11 +207,16 @@ public class HomeFragment extends Fragment {
 
     public void updatePrayerTimeUI(JSONObject data) {
         try {
-            fajrTime.setText(data.getString("fajrIqamah"));
-            dhuhrTime.setText(data.getString("dhuhrIqamah"));
-            asrTime.setText(data.getString("asrIqamah"));
-            maghribTime.setText(data.getString("maghribIqamah"));
-            ishaTime.setText(data.getString("ishaIqamah"));
+            fajrIqamahTime.setText(data.getString("fajrIqamah"));
+            dhuhrIqamahTime.setText(data.getString("dhuhrIqamah"));
+            asrIqamahTime.setText(data.getString("asrIqamah"));
+            maghribIqamahTime.setText(data.getString("maghribIqamah"));
+            ishaIqamahTime.setText(data.getString("ishaIqamah"));
+            fajrStartTime.setText(data.getString("fajrStart"));
+            dhuhrStartTime.setText(data.getString("dhuhrStart"));
+            asrStartTime.setText(data.getString("asrStart"));
+            maghribStartTime.setText(data.getString("maghribStart"));
+            ishaStartTime.setText(data.getString("ishaStart"));
         } catch (JSONException jEx) {
             Log.e("JSON exception: ", jEx.getMessage());
         }
