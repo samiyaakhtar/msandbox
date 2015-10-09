@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
 
     public void setPrayerTimes() {
         Calendar c = Calendar.getInstance();
-        // c.set(Calendar.DAY_OF_YEAR, 1); // For testing bugs
+        // c.set(Calendar.DAY_OF_YEAR, 400); // For testing bugs
         List<Date> days = new ArrayList<>();
         final List<String> formattedDays = new ArrayList<>();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -156,47 +156,7 @@ public class HomeFragment extends Fragment {
                 formattedDays.add(formattedDate);
             }
 
-            ParseQuery query = new ParseQuery("PrayerTimes");
-            query.setLimit(365);
-            query.whereContainedIn("date", formattedDays);
-            // query.fromLocalDatastore();
-            query.findInBackground(new FindCallback() {
-                @Override
-                public void done(final List list, ParseException e) {
-                    if (e != null) {
-                        // There was an error or the network wasn't available.
-                        return;
-                    }
-
-                    // Release any objects previously pinned for this query.
-                    ParseObject.unpinAllInBackground(PRAYER_TIMES_LABEL, list, new DeleteCallback() {
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                // There was some error.
-                                Log.e("Failed in unpin: ", e.getMessage());
-                                return;
-                            }
-
-                            // Add the latest results for this query to the cache.
-                            ParseObject.pinAllInBackground(PRAYER_TIMES_LABEL, list);
-
-                            JSONObject parseToJSON = new JSONObject();
-                            for (int i = 0; i < list.size(); i++) {
-                                prayerTime = (ParseObject) list.get(i);
-                                if (prayerTime.getString("date").equals(todayFormattedDate)) {
-                                    parseToJSON = processParsePrayerTimeToJSON(prayerTime);
-                                    updatePrayerTimeUI(parseToJSON);
-                                }
-                            }
-
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putString("mostRecentNewPrayerDataDate", todayFormattedDate);
-                            editor.putString("mostRecentNewPrayerData", parseToJSON.toString());
-                            editor.apply();
-                        }
-                    });
-                }
-            });
+            queryPrayerTimes(todayFormattedDate, formattedDays, false);
         }
     }
 
@@ -247,5 +207,56 @@ public class HomeFragment extends Fragment {
         dateManipulationCal.add(Calendar.DATE, addition);
         Date outDate = dateManipulationCal.getTime();
         return outDate;
+    }
+
+    public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, Boolean useDatastore) {
+        System.out.println("Running query");
+        ParseQuery query = new ParseQuery("PrayerTimes");
+        query.setLimit(365);
+        query.whereContainedIn("date", formattedDays);
+        if (useDatastore) {
+            query.fromLocalDatastore();
+        }
+        query.findInBackground(new FindCallback() {
+            @Override
+            public void done(final List list, ParseException e) {
+                if (e != null) {
+                    // There was an error or the network wasn't available.
+                    Log.e("No network: ", e.getMessage());
+                    queryPrayerTimes(todayFormattedDate, formattedDays, true);
+                    return;
+                }
+
+                if (list.size() > 0) {
+                    // Release any objects previously pinned for this query.
+                    ParseObject.unpinAllInBackground(PRAYER_TIMES_LABEL, list, new DeleteCallback() {
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                // There was some error.
+                                Log.e("Failed in unpin: ", e.getMessage());
+                                return;
+                            }
+
+                            // Add the latest results for this query to the cache.
+                            ParseObject.pinAllInBackground(PRAYER_TIMES_LABEL, list);
+
+                            JSONObject parseToJSON = new JSONObject();
+                            for (int i = 0; i < list.size(); i++) {
+                                prayerTime = (ParseObject) list.get(i);
+                                if (prayerTime.getString("date").equals(todayFormattedDate)) {
+                                    parseToJSON = processParsePrayerTimeToJSON(prayerTime);
+                                    updatePrayerTimeUI(parseToJSON);
+                                }
+                            }
+
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("mostRecentNewPrayerDataDate", todayFormattedDate);
+                            editor.putString("mostRecentNewPrayerData", parseToJSON.toString());
+                            editor.apply();
+                        }
+                    });
+                }
+            }
+        });
     }
 }
