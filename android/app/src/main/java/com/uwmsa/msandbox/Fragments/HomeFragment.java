@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.UnknownHostException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,13 +107,31 @@ public class HomeFragment extends Fragment {
         List<Date> days = new ArrayList<>();
         final List<String> formattedDays = new ArrayList<>();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat sf = new SimpleDateFormat("MM/dd/yyyy");
 
         Date today = c.getTime();
         final String todayFormattedDate = df.format(today);
 
         String lastSuccessfulQueryDate = prefs.getString("mostRecentNewPrayerDataDate", "None");
-        if (lastSuccessfulQueryDate.equals(todayFormattedDate)) {
-            System.out.println("Times have already been retrieved today");
+
+        Boolean gotLastDate = false;
+        Date lastDate;
+        Date lastDateModified = addDaystoDate(today, 1); // Guarantees times won't be retrieved from SharedPreferences if lastDateModified is not set properly
+
+        if (!lastSuccessfulQueryDate.equals("None")) {
+            try {
+                lastDate = sf.parse(lastSuccessfulQueryDate);
+                lastDateModified = addDaystoDate(lastDate, 7); // Checking if at least one week has passed since last update
+                gotLastDate = true;
+            } catch (java.text.ParseException parseEx) {
+                Log.e("Last query date error: ", parseEx.getMessage());
+            }
+        }
+
+        if (gotLastDate && (today.after(lastDateModified))) {
+            System.out.println("Last date: " + lastDateModified);
+            System.out.println("Today: " + today);
+            System.out.println("Times have already been retrieved in the last week.");
             String lastSuccessfulQuery = prefs.getString("mostRecentNewPrayerData", "None");
             if (!lastSuccessfulQuery.equals("None")) {
                 try {
@@ -220,5 +239,13 @@ public class HomeFragment extends Fragment {
         } catch (JSONException jEx) {
             Log.e("JSON exception: ", jEx.getMessage());
         }
+    }
+
+    public Date addDaystoDate(Date inDate, int addition) {
+        Calendar dateManipulationCal = Calendar.getInstance();
+        dateManipulationCal.setTime(inDate);
+        dateManipulationCal.add(Calendar.DATE, addition);
+        Date outDate = dateManipulationCal.getTime();
+        return outDate;
     }
 }
