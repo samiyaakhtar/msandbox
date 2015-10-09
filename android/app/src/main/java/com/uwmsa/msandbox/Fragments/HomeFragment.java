@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        if (gotLastDate && (today.after(lastDateModified))) {
+        if (gotLastDate && !(today.after(lastDateModified))) {
             System.out.println("Last date: " + lastDateModified);
             System.out.println("Today: " + today);
             System.out.println("Times have already been retrieved in the last week.");
