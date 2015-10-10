@@ -91,7 +91,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="FAJR"
+                android:text=""
                 android:id="@+id/fajrIqamahTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DHUHR"
+                android:text=""
                 android:id="@+id/dhuhrIqamahTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -111,7 +111,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ASR"
+                android:text=""
                 android:id="@+id/asrIqamahTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -121,7 +121,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MAGHRIB"
+                android:text=""
                 android:id="@+id/maghribIqamahTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -131,7 +131,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ISHA"
+                android:text=""
                 android:id="@+id/ishaIqamahTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -227,7 +227,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="FAJR"
+                android:text=""
                 android:id="@+id/fajrStartTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -237,7 +237,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DHUHR"
+                android:text=""
                 android:id="@+id/dhuhrStartTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -247,7 +247,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ASR"
+                android:text=""
                 android:id="@+id/asrStartTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -257,7 +257,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MAGHRIB"
+                android:text=""
                 android:id="@+id/maghribStartTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
@@ -267,7 +267,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ISHA"
+                android:text=""
                 android:id="@+id/ishaStartTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
