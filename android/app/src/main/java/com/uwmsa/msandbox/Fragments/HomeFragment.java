@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment {
         return outDate;
     }
 
-    public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, Boolean useDatastore) {
+    public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useDatastore) {
         System.out.println("Running query");
         ParseQuery query = new ParseQuery("PrayerTimes");
         query.setLimit(365);
@@ -227,7 +227,7 @@ public class HomeFragment extends Fragment {
                     return;
                 }
 
-                if (list.size() > 0) {
+                if (list.size() > 0 && !useDatastore) {
                     // Release any objects previously pinned for this query.
                     ParseObject.unpinAllInBackground(PRAYER_TIMES_LABEL, list, new DeleteCallback() {
                         public void done(ParseException e) {
