@@ -63,8 +63,8 @@ public class SignupActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                String password = vPasswordEditText.getText().toString();
-                String confirmPassword = vConfirmPasswordEditText.getText().toString();
+                String password = vPasswordEditText.getText().toString().trim();
+                String confirmPassword = vConfirmPasswordEditText.getText().toString().trim();
 
                 if(!confirmPassword.equals(password)) {
                     Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -79,10 +79,10 @@ public class SignupActivity extends ActionBarActivity {
                 progressDialog.show();
 
                 User newUser = new User();
-                newUser.setUsername(vUsernameEditText.getText().toString());
+                newUser.setUsername(vUsernameEditText.getText().toString().trim());
                 newUser.setPassword(password);
-                newUser.setUwStudentId(vStudentIdEditText.getText().toString());
-                newUser.setEmail(vEmailEditText.getText().toString());
+                newUser.setUwStudentId(vStudentIdEditText.getText().toString().trim());
+                newUser.setEmail(vEmailEditText.getText().toString().trim());
 
                 newUser.signUpInBackground(new SignUpCallback() {
                     @Override

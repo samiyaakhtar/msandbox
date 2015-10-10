@@ -70,7 +70,7 @@ public class LoginActivity extends ActionBarActivity {
                 progressDialog.setMessage("Logging In");
                 progressDialog.show();
 
-                ParseUser.logInInBackground(vUsernameEditText.getText().toString(), vPasswordEditText.getText().toString(), new LogInCallback() {
+                ParseUser.logInInBackground(vUsernameEditText.getText().toString().trim(), vPasswordEditText.getText().toString().trim(), new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         progressDialog.dismiss();
