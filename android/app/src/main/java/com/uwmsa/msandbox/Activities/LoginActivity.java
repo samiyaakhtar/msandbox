@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +81,13 @@ public class LoginActivity extends ActionBarActivity {
                             LoginActivity.this.startActivity(newIntent);
                         }
                         else {
-                            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            String errorMessage;
+                            if (e.getMessage().equals("i/o failure: java.net.UnknownHostException: Unable to resolve host \"api.parse.com\": No address associated with hostname")) {
+                                errorMessage = "No network connection";
+                            } else {
+                                errorMessage = e.getMessage().substring(0, 1).toUpperCase() + e.getMessage().substring(1);
+                            }
+                            Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
