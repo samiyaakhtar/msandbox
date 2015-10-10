@@ -1,12 +1,11 @@
 package com.uwmsa.msandbox.Fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,28 +14,22 @@ import android.widget.TextView;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.uwmsa.msandbox.Activities.MainActivity;
-import com.uwmsa.msandbox.Adapters.PrayerLocationMainAdapter;
 import com.uwmsa.msandbox.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-
-import io.karim.MaterialTabs;
 
 public class HomeFragment extends Fragment {
 
@@ -112,6 +105,22 @@ public class HomeFragment extends Fragment {
         Date today = c.getTime();
         final String todayFormattedDate = df.format(today);
 
+        days.add(today);
+        formattedDays.add(todayFormattedDate);
+
+        for (int i = 0; i < 364; i++) { // 364 because 0-363 is 364 and today has already been added, making 365 days (approx. 1 year)
+            c.add(Calendar.DAY_OF_YEAR, 1);
+            Date newDate = c.getTime();
+            days.add(newDate);
+        }
+
+        for (int i = 1; i < 365; i++) {
+            String formattedDate = df.format(days.get(i));
+            formattedDays.add(formattedDate);
+        }
+
+        queryPrayerTimes(todayFormattedDate, formattedDays, true);
+
         String lastSuccessfulQueryDate = prefs.getString("mostRecentNewPrayerDataDate", "None");
 
         Boolean gotLastDate = false;
@@ -132,30 +141,7 @@ public class HomeFragment extends Fragment {
             System.out.println("Last date: " + lastDateModified);
             System.out.println("Today: " + today);
             System.out.println("Times have already been retrieved in the last week.");
-            String lastSuccessfulQuery = prefs.getString("mostRecentNewPrayerData", "None");
-            if (!lastSuccessfulQuery.equals("None")) {
-                try {
-                    JSONObject jsonObject = new JSONObject(lastSuccessfulQuery);
-                    updatePrayerTimeUI(jsonObject);
-                } catch (JSONException jEx) {
-                    Log.e("JSON exception: ", jEx.getMessage());
-                }
-            }
         } else {
-            days.add(today);
-            formattedDays.add(todayFormattedDate);
-
-            for (int i = 0; i < 364; i++) { // 364 because 0-363 is 364 and today has already been added, making 365 days (approx. 1 year)
-                c.add(Calendar.DAY_OF_YEAR, 1);
-                Date newDate = c.getTime();
-                days.add(newDate);
-            }
-
-            for (int i = 1; i < 365; i++) {
-                String formattedDate = df.format(days.get(i));
-                formattedDays.add(formattedDate);
-            }
-
             queryPrayerTimes(todayFormattedDate, formattedDays, false);
         }
     }
@@ -205,8 +191,7 @@ public class HomeFragment extends Fragment {
         Calendar dateManipulationCal = Calendar.getInstance();
         dateManipulationCal.setTime(inDate);
         dateManipulationCal.add(Calendar.DATE, addition);
-        Date outDate = dateManipulationCal.getTime();
-        return outDate;
+        return dateManipulationCal.getTime();
     }
 
     public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useDatastore) {
@@ -223,38 +208,38 @@ public class HomeFragment extends Fragment {
                 if (e != null) {
                     // There was an error or the network wasn't available.
                     Log.e("No network: ", e.getMessage());
-                    queryPrayerTimes(todayFormattedDate, formattedDays, true);
                     return;
                 }
 
-                if (list.size() > 0 && !useDatastore) {
-                    // Release any objects previously pinned for this query.
-                    ParseObject.unpinAllInBackground(PRAYER_TIMES_LABEL, list, new DeleteCallback() {
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                // There was some error.
-                                Log.e("Failed in unpin: ", e.getMessage());
-                                return;
-                            }
-
-                            // Add the latest results for this query to the cache.
-                            ParseObject.pinAllInBackground(PRAYER_TIMES_LABEL, list);
-
-                            JSONObject parseToJSON = new JSONObject();
-                            for (int i = 0; i < list.size(); i++) {
-                                prayerTime = (ParseObject) list.get(i);
-                                if (prayerTime.getString("date").equals(todayFormattedDate)) {
-                                    parseToJSON = processParsePrayerTimeToJSON(prayerTime);
-                                    updatePrayerTimeUI(parseToJSON);
-                                }
-                            }
-
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putString("mostRecentNewPrayerDataDate", todayFormattedDate);
-                            editor.putString("mostRecentNewPrayerData", parseToJSON.toString());
-                            editor.apply();
+                if (list.size() > 0) {
+                    JSONObject parseToJSON;
+                    for (int i = 0; i < list.size(); i++) {
+                        prayerTime = (ParseObject) list.get(i);
+                        if (prayerTime.getString("date").equals(todayFormattedDate)) {
+                            parseToJSON = processParsePrayerTimeToJSON(prayerTime);
+                            updatePrayerTimeUI(parseToJSON);
                         }
-                    });
+                    }
+
+                    if (!useDatastore) {
+                        // Release any objects previously pinned for this query.
+                        ParseObject.unpinAllInBackground(PRAYER_TIMES_LABEL, list, new DeleteCallback() {
+                            public void done(ParseException e) {
+                                if (e != null) {
+                                    // There was some error.
+                                    Log.e("Failed in unpin: ", e.getMessage());
+                                    return;
+                                }
+
+                                // Add the latest results for this query to the cache.
+                                ParseObject.pinAllInBackground(PRAYER_TIMES_LABEL, list);
+
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("mostRecentNewPrayerDataDate", todayFormattedDate);
+                                editor.apply();
+                            }
+                        });
+                    }
                 }
             }
         });
