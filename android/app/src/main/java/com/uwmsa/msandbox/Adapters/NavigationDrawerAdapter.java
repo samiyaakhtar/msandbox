@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
 import com.uwmsa.msandbox.Models.NavigationBarOption;
 import com.uwmsa.msandbox.R;
 
@@ -99,6 +100,10 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public NavigationDrawerHeaderHolder(View itemView) {
             super(itemView);
+
+            TextView username = (TextView) itemView.findViewById(R.id.username);
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            username.setText(currentUser.getUsername());
         }
     }
 
