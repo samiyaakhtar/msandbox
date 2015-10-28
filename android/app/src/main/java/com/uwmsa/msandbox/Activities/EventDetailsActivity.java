@@ -54,7 +54,6 @@ public class EventDetailsActivity extends ActionBarActivity {
         vLocation = (TextView) findViewById(R.id.eventDetails_location);
         vStartTime = (TextView) findViewById(R.id.eventDetails_startTime);
         vEndTime = (TextView) findViewById(R.id.eventDetails_endTime);
-
     }
 
     @Override

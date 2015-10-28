@@ -25,7 +25,7 @@ public class App extends Application {
         ParseCrashReporting.enable(this);
 
         // Enable Local Datastore with Parse.com
-        Parse.enableLocalDatastore(this);
+        // Parse.enableLocalDatastore(this);
         Parse.initialize(this, Constants.APPLICATION_ID, Constants.CLIENT_ID );
 
         ParseObject.registerSubclass(User.class);

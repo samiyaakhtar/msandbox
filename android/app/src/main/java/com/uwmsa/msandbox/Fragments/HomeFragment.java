@@ -194,13 +194,15 @@ public class HomeFragment extends Fragment {
         return dateManipulationCal.getTime();
     }
 
-    public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useDatastore) {
+    public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useCache) {
         System.out.println("Running query");
         ParseQuery query = new ParseQuery("PrayerTimes");
         query.setLimit(365);
         query.whereContainedIn("date", formattedDays);
-        if (useDatastore) {
-            query.fromLocalDatastore();
+        if (useCache) {
+            query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ONLY);
+        } else {
+            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
         }
         query.findInBackground(new FindCallback() {
             @Override
@@ -219,26 +221,6 @@ public class HomeFragment extends Fragment {
                             parseToJSON = processParsePrayerTimeToJSON(prayerTime);
                             updatePrayerTimeUI(parseToJSON);
                         }
-                    }
-
-                    if (!useDatastore) {
-                        // Release any objects previously pinned for this query.
-                        ParseObject.unpinAllInBackground(PRAYER_TIMES_LABEL, list, new DeleteCallback() {
-                            public void done(ParseException e) {
-                                if (e != null) {
-                                    // There was some error.
-                                    Log.e("Failed in unpin: ", e.getMessage());
-                                    return;
-                                }
-
-                                // Add the latest results for this query to the cache.
-                                ParseObject.pinAllInBackground(PRAYER_TIMES_LABEL, list);
-
-                                SharedPreferences.Editor editor = prefs.edit();
-                                editor.putString("mostRecentNewPrayerDataDate", todayFormattedDate);
-                                editor.apply();
-                            }
-                        });
                     }
                 }
             }

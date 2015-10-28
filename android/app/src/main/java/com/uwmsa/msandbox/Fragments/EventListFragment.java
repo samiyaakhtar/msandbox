@@ -52,7 +52,7 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
 
     public void fillEventsRecyclerView() {
         ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.CLASSNAME);
-
+        eventQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
         eventQuery.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(List<Event> events, ParseException e) {

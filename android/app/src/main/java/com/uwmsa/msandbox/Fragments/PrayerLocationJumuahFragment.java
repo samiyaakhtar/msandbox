@@ -61,6 +61,7 @@ public class PrayerLocationJumuahFragment extends Fragment implements SwipeRefre
     private void getLocations() {
         ParseQuery<PrayerRoomLocation> query = ParseQuery.getQuery(PrayerRoomLocation.class);
         query.whereEqualTo(PrayerRoomLocation.TYPE, "Jumuah");
+        query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
         query.findInBackground(new FindCallback<PrayerRoomLocation>() {
             @Override
             public void done(List<PrayerRoomLocation> prayerRoomLocations, ParseException e) {
