@@ -55,7 +55,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         String description = location.getDescription();
 
         holder.vBuilding.setText(building);
-        holder.vRoomNumber.setText("- " + roomNumber);
+        holder.vRoomNumber.setText(roomNumber);
         holder.vDescription.setText(description);
 
         if( userPresent != null ) {
