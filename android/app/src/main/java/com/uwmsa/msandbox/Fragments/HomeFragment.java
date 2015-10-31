@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -18,6 +19,9 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.uwmsa.msandbox.Activities.MainActivity;
+import com.uwmsa.msandbox.Adapters.EventAdapter;
+import com.uwmsa.msandbox.Models.Event;
+import com.uwmsa.msandbox.Models.Hadith;
 import com.uwmsa.msandbox.R;
 
 import org.json.JSONException;
@@ -84,6 +88,7 @@ public class HomeFragment extends Fragment {
         prefs = context.getSharedPreferences(PREF_FILE_NAME, context.MODE_PRIVATE);
 
         setPrayerTimes();
+        setDailyHadith();
 
         return homeView;
     }
@@ -94,7 +99,36 @@ public class HomeFragment extends Fragment {
         ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
-    public void setPrayerTimes() {
+    private void setDailyHadith() {
+        Calendar c = Calendar.getInstance();
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+
+        ParseQuery<Hadith> hadithParseQuery = ParseQuery.getQuery(Hadith.CLASSNAME);
+        hadithParseQuery.whereEqualTo("number", dayOfMonth);
+        hadithParseQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+        hadithParseQuery.findInBackground(new FindCallback<Hadith>() {
+            @Override
+            public void done(List<Hadith> ahadith, ParseException e) {
+                if (e != null) {
+                    try {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    } catch (NullPointerException ne) {
+                        // User has switched fragments to something other than the event list while
+                        // there was no network connection, so the toast has no context and throws an error
+                        Log.e("Error", ne.getMessage());
+                    }
+                } else {
+                    Hadith matchHadith = ahadith.get(0);
+                    Log.i("Home Fragment Number", matchHadith.getNumber().toString());
+                    Log.i("Home Fragment English", matchHadith.getEnglishText());
+                    Log.i("Home Fragment Arabic", matchHadith.getArabicText());
+                }
+            }
+        });
+    }
+
+    private void setPrayerTimes() {
         Calendar c = Calendar.getInstance();
         // c.set(Calendar.DAY_OF_YEAR, 400); // For testing bugs
         List<Date> days = new ArrayList<>();
@@ -146,7 +180,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public JSONObject processParsePrayerTimeToJSON(ParseObject prayerTime) {
+    private JSONObject processParsePrayerTimeToJSON(ParseObject prayerTime) {
         JSONObject storeAsJson = new JSONObject();
         JSONObject eqamaTime = prayerTime.getJSONObject("eqama");
         JSONObject startTime = prayerTime.getJSONObject("beginning");
@@ -170,7 +204,7 @@ public class HomeFragment extends Fragment {
         return storeAsJson;
     }
 
-    public void updatePrayerTimeUI(JSONObject data) {
+    private void updatePrayerTimeUI(JSONObject data) {
         try {
             fajrIqamahTime.setText(data.getString("fajrIqamah"));
             dhuhrIqamahTime.setText(data.getString("dhuhrIqamah"));
@@ -187,14 +221,14 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public Date addDaystoDate(Date inDate, int addition) {
+    private Date addDaystoDate(Date inDate, int addition) {
         Calendar dateManipulationCal = Calendar.getInstance();
         dateManipulationCal.setTime(inDate);
         dateManipulationCal.add(Calendar.DATE, addition);
         return dateManipulationCal.getTime();
     }
 
-    public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useCache) {
+    private void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useCache) {
         System.out.println("Running query");
         ParseQuery query = new ParseQuery("PrayerTimes");
         query.setLimit(365);

@@ -7,6 +7,7 @@ import com.parse.ParseCrashReporting;
 import com.parse.ParseObject;
 import com.uwmsa.msandbox.Models.Event;
 import com.uwmsa.msandbox.Models.EventLike;
+import com.uwmsa.msandbox.Models.Hadith;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.Models.User;
 
@@ -32,5 +33,6 @@ public class App extends Application {
         ParseObject.registerSubclass(Event.class);
         ParseObject.registerSubclass(PrayerRoomLocation.class);
         ParseObject.registerSubclass(EventLike.class);
+        ParseObject.registerSubclass(Hadith.class);
     }
 }
