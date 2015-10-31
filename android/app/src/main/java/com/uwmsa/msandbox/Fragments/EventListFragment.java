@@ -52,13 +52,19 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
 
     public void fillEventsRecyclerView() {
         ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.CLASSNAME);
-
+        eventQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
         eventQuery.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(List<Event> events, ParseException e) {
                 if (e != null) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    return;
+                    try {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    } catch (NullPointerException ne) {
+                        // User has switched fragments to something other than the event list while
+                        // there was no network connection, so the toast has no context and throws an error
+                        Log.e("Error", ne.getMessage());
+                    }
                 }
                 EventAdapter eventAdapter = new EventAdapter(events,  mSwipeRefreshLayout.isRefreshing() || constructorCalled);
                 eventAdapter.setOnEventClickListener(EventListFragment.this);

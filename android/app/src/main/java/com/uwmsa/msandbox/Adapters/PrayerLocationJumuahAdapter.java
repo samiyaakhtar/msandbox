@@ -54,7 +54,7 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
         String description = location.getDescription();
 
         holder.vBuilding.setText(building);
-        holder.vRoomNumber.setText("- " + roomNumber);
+        holder.vRoomNumber.setText(roomNumber);
         holder.vDescription.setText(description);
 
         if( userPresent != null ) {

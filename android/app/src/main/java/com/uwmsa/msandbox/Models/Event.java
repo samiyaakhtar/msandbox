@@ -35,6 +35,7 @@ public class Event extends ParseObject {
 
     public static void fetchEventInBackground(String objectId, GetCallback<Event> eventGetCallback) {
         ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.class);
+        eventQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
         eventQuery.getInBackground(objectId, eventGetCallback);
     }
 
