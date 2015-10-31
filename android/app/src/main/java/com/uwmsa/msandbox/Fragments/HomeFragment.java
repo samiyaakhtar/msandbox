@@ -53,6 +53,9 @@ public class HomeFragment extends Fragment {
     private TextView ishaStartTime;
     private ParseObject prayerTime;
 
+    private TextView englishHadith;
+    private TextView arabicHadith;
+
     private Context context;
     private SharedPreferences prefs;
 
@@ -83,6 +86,9 @@ public class HomeFragment extends Fragment {
         asrStartTime = (TextView) homeView.findViewById(R.id.asrStartTime);
         maghribStartTime = (TextView) homeView.findViewById(R.id.maghribStartTime);
         ishaStartTime = (TextView) homeView.findViewById(R.id.ishaStartTime);
+
+        englishHadith = (TextView) homeView.findViewById(R.id.englishHadith);
+        arabicHadith = (TextView) homeView.findViewById(R.id.arabicHadith);
 
         context = getActivity();
         prefs = context.getSharedPreferences(PREF_FILE_NAME, context.MODE_PRIVATE);
@@ -120,9 +126,8 @@ public class HomeFragment extends Fragment {
                     }
                 } else {
                     Hadith matchHadith = ahadith.get(0);
-                    Log.i("Home Fragment Number", matchHadith.getNumber().toString());
-                    Log.i("Home Fragment English", matchHadith.getEnglishText());
-                    Log.i("Home Fragment Arabic", matchHadith.getArabicText());
+                    englishHadith.setText(matchHadith.getEnglishText());
+                    arabicHadith.setText(matchHadith.getArabicText());
                 }
             }
         });
