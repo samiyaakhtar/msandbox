@@ -2,16 +2,159 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.uwmsa.msandbox.Fragments.HomeFragment">
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:background="#FFFFFF"
+        android:stretchColumns="*"
+        android:id="@+id/athaanTimesTable"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="6dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Athaan Times"
+            android:id="@+id/startTimes"
+            android:textSize="20sp"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:background="@drawable/underline" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FAJR"
+                android:id="@+id/fajrStartTitle"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DHUHR"
+                android:id="@+id/dhuhrStartTitle"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ASR"
+                android:id="@+id/asrStartTitle"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MAGHRIB"
+                android:id="@+id/maghribStartTitle"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ISHA"
+                android:id="@+id/ishaStartTitle"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/fajrStartTime"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/dhuhrStartTime"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/asrStartTime"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/maghribStartTime"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/ishaStartTime"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_horizontal" />
+        </TableRow>
+    </TableLayout>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:padding="6dp"
-        android:layout_margin="6dp"
         android:background="#FFFFFF"
         android:stretchColumns="*"
-        android:id="@+id/tableLayout">
+        android:id="@+id/iqamahTimesTable"
+        android:layout_below="@+id/athaanTimesTable"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="6dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -133,142 +276,6 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:id="@+id/ishaIqamahTime"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-        </TableRow>
-    </TableLayout>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:background="#FFFFFF"
-        android:stretchColumns="*"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignLeft="@+id/tableLayout"
-        android:layout_alignStart="@+id/tableLayout">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start Times"
-            android:id="@+id/startTimes"
-            android:textSize="20sp"
-            android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="6dp" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:background="@drawable/underline" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="FAJR"
-                android:id="@+id/fajrStartTitle"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="DHUHR"
-                android:id="@+id/dhuhrStartTitle"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ASR"
-                android:id="@+id/asrStartTitle"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="MAGHRIB"
-                android:id="@+id/maghribStartTitle"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ISHA"
-                android:id="@+id/ishaStartTitle"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/fajrStartTime"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/dhuhrStartTime"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/asrStartTime"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/maghribStartTime"
-                android:textSize="18sp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/ishaStartTime"
                 android:textSize="18sp"
                 android:textColor="#000000"
                 android:textStyle="bold"
