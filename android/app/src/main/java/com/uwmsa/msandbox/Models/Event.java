@@ -28,9 +28,10 @@ public class Event extends ParseObject {
     public static final String CATEGORY = "category";
     public static final String IMAGE = "image";
     public static final String OBJECTID = "objectId";
+    public static final String TICKET_PRICE = "ticketPrice";
+
 
     public Event() {
-
     }
 
     public static void fetchEventInBackground(String objectId, GetCallback<Event> eventGetCallback) {
@@ -70,4 +71,9 @@ public class Event extends ParseObject {
     public ParseFile getImage() {
         return getParseFile(IMAGE);
     }
+
+    public Number getTicketPrice() {
+        return getNumber(TICKET_PRICE);
+    }
+
 }
