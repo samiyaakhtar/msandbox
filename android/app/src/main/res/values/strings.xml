@@ -27,4 +27,13 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+    <!-- Event Details Activity Strings -->
+    <string name="ed_venue_name">VENUE NAME</string>
+    <string name="ed_ticket_price">TICKET PRICE</string>
+    <string name="ed_more_info_title">ABOUT</string>
+
+    <string name="hello_world">Hello world!</string>
+
+
+
 </resources>
