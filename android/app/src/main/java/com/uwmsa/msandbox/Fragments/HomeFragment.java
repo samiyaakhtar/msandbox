@@ -147,6 +147,8 @@ public class HomeFragment extends Fragment {
         days.add(today);
         formattedDays.add(todayFormattedDate);
 
+        queryPrayerTimes(todayFormattedDate, formattedDays, true);
+
         for (int i = 0; i < 364; i++) { // 364 because 0-363 is 364 and today has already been added, making 365 days (approx. 1 year)
             c.add(Calendar.DAY_OF_YEAR, 1);
             Date newDate = c.getTime();
@@ -157,8 +159,6 @@ public class HomeFragment extends Fragment {
             String formattedDate = df.format(days.get(i));
             formattedDays.add(formattedDate);
         }
-
-        queryPrayerTimes(todayFormattedDate, formattedDays, true);
 
         String lastSuccessfulQueryDate = prefs.getString("mostRecentNewPrayerDataDate", "None");
 
