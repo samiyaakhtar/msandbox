@@ -44,7 +44,6 @@
                     android:text="FAJR"
                     android:id="@+id/fajrStartTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -54,7 +53,6 @@
                     android:text="DHUHR"
                     android:id="@+id/dhuhrStartTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -64,7 +62,6 @@
                     android:text="ASR"
                     android:id="@+id/asrStartTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -74,7 +71,6 @@
                     android:text="MAGHRIB"
                     android:id="@+id/maghribStartTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -84,7 +80,6 @@
                     android:text="ISHA"
                     android:id="@+id/ishaStartTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
             </TableRow>
@@ -102,9 +97,9 @@
                     android:text=""
                     android:id="@+id/fajrStartTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -112,9 +107,9 @@
                     android:text=""
                     android:id="@+id/dhuhrStartTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -122,9 +117,9 @@
                     android:text=""
                     android:id="@+id/asrStartTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -132,9 +127,9 @@
                     android:text=""
                     android:id="@+id/maghribStartTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -142,9 +137,9 @@
                     android:text=""
                     android:id="@+id/ishaStartTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
             </TableRow>
         </TableLayout>
 
@@ -185,7 +180,6 @@
                     android:text="FAJR"
                     android:id="@+id/fajrIqamahTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -195,7 +189,6 @@
                     android:text="DHUHR"
                     android:id="@+id/dhuhrIqamahTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -205,7 +198,6 @@
                     android:text="ASR"
                     android:id="@+id/asrIqamahTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -215,7 +207,6 @@
                     android:text="MAGHRIB"
                     android:id="@+id/maghribIqamahTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
 
@@ -225,7 +216,6 @@
                     android:text="ISHA"
                     android:id="@+id/ishaIqamahTitle"
                     android:textSize="14sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
                     android:gravity="center_horizontal" />
             </TableRow>
@@ -244,9 +234,9 @@
                     android:text=""
                     android:id="@+id/fajrIqamahTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -254,9 +244,9 @@
                     android:text=""
                     android:id="@+id/dhuhrIqamahTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -264,9 +254,9 @@
                     android:text=""
                     android:id="@+id/asrIqamahTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -274,9 +264,9 @@
                     android:text=""
                     android:id="@+id/maghribIqamahTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -284,9 +274,9 @@
                     android:text=""
                     android:id="@+id/ishaIqamahTime"
                     android:textSize="18sp"
-                    android:textColor="#000000"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textColor="#000000" />
             </TableRow>
         </TableLayout>
 

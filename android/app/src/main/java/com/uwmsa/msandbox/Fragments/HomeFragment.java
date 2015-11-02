@@ -160,29 +160,7 @@ public class HomeFragment extends Fragment {
             formattedDays.add(formattedDate);
         }
 
-        String lastSuccessfulQueryDate = prefs.getString("mostRecentNewPrayerDataDate", "None");
-
-        Boolean gotLastDate = false;
-        Date lastDate;
-        Date lastDateModified = addDaystoDate(today, 1); // Guarantees times won't be retrieved from SharedPreferences if lastDateModified is not set properly
-
-        if (!lastSuccessfulQueryDate.equals("None")) {
-            try {
-                lastDate = sf.parse(lastSuccessfulQueryDate);
-                lastDateModified = addDaystoDate(lastDate, 7); // Checking if at least one week has passed since last update
-                gotLastDate = true;
-            } catch (java.text.ParseException parseEx) {
-                Log.e("Last query date error: ", parseEx.getMessage());
-            }
-        }
-
-        if (gotLastDate && !(today.after(lastDateModified))) {
-            System.out.println("Last date: " + lastDateModified);
-            System.out.println("Today: " + today);
-            System.out.println("Times have already been retrieved in the last week.");
-        } else {
-            queryPrayerTimes(todayFormattedDate, formattedDays, false);
-        }
+         queryPrayerTimes(todayFormattedDate, formattedDays, false);
     }
 
     private JSONObject processParsePrayerTimeToJSON(ParseObject prayerTime) {
@@ -226,13 +204,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private Date addDaystoDate(Date inDate, int addition) {
-        Calendar dateManipulationCal = Calendar.getInstance();
-        dateManipulationCal.setTime(inDate);
-        dateManipulationCal.add(Calendar.DATE, addition);
-        return dateManipulationCal.getTime();
-    }
-
     private void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useCache) {
         System.out.println("Running query");
         ParseQuery query = new ParseQuery("PrayerTimes");
@@ -241,14 +212,14 @@ public class HomeFragment extends Fragment {
         if (useCache) {
             query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ONLY);
         } else {
-            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ONLY);
         }
         query.findInBackground(new FindCallback() {
             @Override
             public void done(final List list, ParseException e) {
                 if (e != null) {
                     // There was an error or the network wasn't available.
-                    Log.e("No network: ", e.getMessage());
+                    Log.e("No network", e.getMessage());
                     return;
                 }
 
