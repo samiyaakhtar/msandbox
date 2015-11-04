@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -18,6 +19,9 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.uwmsa.msandbox.Activities.MainActivity;
+import com.uwmsa.msandbox.Adapters.EventAdapter;
+import com.uwmsa.msandbox.Models.Event;
+import com.uwmsa.msandbox.Models.Hadith;
 import com.uwmsa.msandbox.R;
 
 import org.json.JSONException;
@@ -48,6 +52,9 @@ public class HomeFragment extends Fragment {
     private TextView maghribStartTime;
     private TextView ishaStartTime;
     private ParseObject prayerTime;
+
+    private TextView englishHadith;
+    private TextView arabicHadith;
 
     private Context context;
     private SharedPreferences prefs;
@@ -80,10 +87,14 @@ public class HomeFragment extends Fragment {
         maghribStartTime = (TextView) homeView.findViewById(R.id.maghribStartTime);
         ishaStartTime = (TextView) homeView.findViewById(R.id.ishaStartTime);
 
+        englishHadith = (TextView) homeView.findViewById(R.id.englishHadith);
+        arabicHadith = (TextView) homeView.findViewById(R.id.arabicHadith);
+
         context = getActivity();
         prefs = context.getSharedPreferences(PREF_FILE_NAME, context.MODE_PRIVATE);
 
         setPrayerTimes();
+        setDailyHadith();
 
         return homeView;
     }
@@ -94,7 +105,35 @@ public class HomeFragment extends Fragment {
         ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
-    public void setPrayerTimes() {
+    private void setDailyHadith() {
+        Calendar c = Calendar.getInstance();
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+
+        ParseQuery<Hadith> hadithParseQuery = ParseQuery.getQuery(Hadith.CLASSNAME);
+        hadithParseQuery.whereEqualTo("number", dayOfMonth);
+        hadithParseQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+        hadithParseQuery.findInBackground(new FindCallback<Hadith>() {
+            @Override
+            public void done(List<Hadith> ahadith, ParseException e) {
+                if (e != null) {
+                    try {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    } catch (NullPointerException ne) {
+                        // User has switched fragments to something other than the event list while
+                        // there was no network connection, so the toast has no context and throws an error
+                        Log.e("Error", ne.getMessage());
+                    }
+                } else {
+                    Hadith matchHadith = ahadith.get(0);
+                    englishHadith.setText(matchHadith.getEnglishText());
+                    arabicHadith.setText(matchHadith.getArabicText());
+                }
+            }
+        });
+    }
+
+    private void setPrayerTimes() {
         Calendar c = Calendar.getInstance();
         // c.set(Calendar.DAY_OF_YEAR, 400); // For testing bugs
         List<Date> days = new ArrayList<>();
@@ -108,6 +147,8 @@ public class HomeFragment extends Fragment {
         days.add(today);
         formattedDays.add(todayFormattedDate);
 
+        queryPrayerTimes(todayFormattedDate, formattedDays, true);
+
         for (int i = 0; i < 364; i++) { // 364 because 0-363 is 364 and today has already been added, making 365 days (approx. 1 year)
             c.add(Calendar.DAY_OF_YEAR, 1);
             Date newDate = c.getTime();
@@ -119,34 +160,10 @@ public class HomeFragment extends Fragment {
             formattedDays.add(formattedDate);
         }
 
-        queryPrayerTimes(todayFormattedDate, formattedDays, true);
-
-        String lastSuccessfulQueryDate = prefs.getString("mostRecentNewPrayerDataDate", "None");
-
-        Boolean gotLastDate = false;
-        Date lastDate;
-        Date lastDateModified = addDaystoDate(today, 1); // Guarantees times won't be retrieved from SharedPreferences if lastDateModified is not set properly
-
-        if (!lastSuccessfulQueryDate.equals("None")) {
-            try {
-                lastDate = sf.parse(lastSuccessfulQueryDate);
-                lastDateModified = addDaystoDate(lastDate, 7); // Checking if at least one week has passed since last update
-                gotLastDate = true;
-            } catch (java.text.ParseException parseEx) {
-                Log.e("Last query date error: ", parseEx.getMessage());
-            }
-        }
-
-        if (gotLastDate && !(today.after(lastDateModified))) {
-            System.out.println("Last date: " + lastDateModified);
-            System.out.println("Today: " + today);
-            System.out.println("Times have already been retrieved in the last week.");
-        } else {
-            queryPrayerTimes(todayFormattedDate, formattedDays, false);
-        }
+         queryPrayerTimes(todayFormattedDate, formattedDays, false);
     }
 
-    public JSONObject processParsePrayerTimeToJSON(ParseObject prayerTime) {
+    private JSONObject processParsePrayerTimeToJSON(ParseObject prayerTime) {
         JSONObject storeAsJson = new JSONObject();
         JSONObject eqamaTime = prayerTime.getJSONObject("eqama");
         JSONObject startTime = prayerTime.getJSONObject("beginning");
@@ -170,7 +187,7 @@ public class HomeFragment extends Fragment {
         return storeAsJson;
     }
 
-    public void updatePrayerTimeUI(JSONObject data) {
+    private void updatePrayerTimeUI(JSONObject data) {
         try {
             fajrIqamahTime.setText(data.getString("fajrIqamah"));
             dhuhrIqamahTime.setText(data.getString("dhuhrIqamah"));
@@ -187,14 +204,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public Date addDaystoDate(Date inDate, int addition) {
-        Calendar dateManipulationCal = Calendar.getInstance();
-        dateManipulationCal.setTime(inDate);
-        dateManipulationCal.add(Calendar.DATE, addition);
-        return dateManipulationCal.getTime();
-    }
-
-    public void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useCache) {
+    private void queryPrayerTimes(final String todayFormattedDate, final List<String> formattedDays, final Boolean useCache) {
         System.out.println("Running query");
         ParseQuery query = new ParseQuery("PrayerTimes");
         query.setLimit(365);
@@ -202,14 +212,14 @@ public class HomeFragment extends Fragment {
         if (useCache) {
             query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ONLY);
         } else {
-            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ONLY);
         }
         query.findInBackground(new FindCallback() {
             @Override
             public void done(final List list, ParseException e) {
                 if (e != null) {
                     // There was an error or the network wasn't available.
-                    Log.e("No network: ", e.getMessage());
+                    Log.e("No network", e.getMessage());
                     return;
                 }
 
