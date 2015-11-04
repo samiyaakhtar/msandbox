@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,8 +61,17 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        navigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_home_layout), toolbar);
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_home_layout);
+        navigationDrawerFragment.setUp(R.id.navigation_drawer, mDrawerLayout, toolbar);
         navigationDrawerFragment.setItemSelectionListener(this);
+
+        if(savedInstanceState == null) {
+            Fragment fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = HomeFragment.newInstance(0);
+            fragmentManager.beginTransaction().replace(R.id.container_layout, fragment).commit();
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        }
     }
 
     public int getStatusBarHeight() {
@@ -111,7 +121,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                         .commit();
             }
 
-        }, 250);
+        }, 50);
 
     }
 
