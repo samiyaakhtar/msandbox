@@ -34,6 +34,7 @@
 
     <string name="hello_world">Hello world!</string>
 
-
+    <!-- Default fragment message -->
+    <string name="feature_not_available">Sorry, but this feature is currently unavailable. We are working hard to bring it to you.</string>
 
 </resources>
