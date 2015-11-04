@@ -147,8 +147,6 @@ public class HomeFragment extends Fragment {
         days.add(today);
         formattedDays.add(todayFormattedDate);
 
-        queryPrayerTimes(todayFormattedDate, formattedDays, true);
-
         for (int i = 0; i < 364; i++) { // 364 because 0-363 is 364 and today has already been added, making 365 days (approx. 1 year)
             c.add(Calendar.DAY_OF_YEAR, 1);
             Date newDate = c.getTime();
@@ -160,7 +158,8 @@ public class HomeFragment extends Fragment {
             formattedDays.add(formattedDate);
         }
 
-         queryPrayerTimes(todayFormattedDate, formattedDays, false);
+        queryPrayerTimes(todayFormattedDate, formattedDays, true);
+        queryPrayerTimes(todayFormattedDate, formattedDays, false);
     }
 
     private JSONObject processParsePrayerTimeToJSON(ParseObject prayerTime) {
@@ -212,7 +211,7 @@ public class HomeFragment extends Fragment {
         if (useCache) {
             query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ONLY);
         } else {
-            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ONLY);
+            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
         }
         query.findInBackground(new FindCallback() {
             @Override
