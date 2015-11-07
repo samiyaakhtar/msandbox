@@ -17,6 +17,9 @@
     <string name="title_section1">Home</string>
     <string name="title_section2">Events</string>
     <string name="title_section3">Prayer Locations</string>
+    <string name="title_section4">Halal Food Finder</string>
+    <string name="title_section5">Participate</string>
+    <string name="title_section6">Gallery</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example Action</string>
