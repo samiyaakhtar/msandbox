@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class HomeFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String PREF_FILE_NAME = "userprefs";
     private final String PRAYER_TIMES_LABEL = "PrayerTimes";
+
+    private boolean hadithExpanded = false;
 
     private TextView fajrIqamahTime;
     private TextView dhuhrIqamahTime;
@@ -76,6 +79,9 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View homeView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        context = getActivity();
+        prefs = context.getSharedPreferences(PREF_FILE_NAME, context.MODE_PRIVATE);
+
         fajrIqamahTime = (TextView) homeView.findViewById(R.id.fajrIqamahTime);
         dhuhrIqamahTime = (TextView) homeView.findViewById(R.id.dhuhrIqamahTime);
         asrIqamahTime = (TextView) homeView.findViewById(R.id.asrIqamahTime);
@@ -90,8 +96,23 @@ public class HomeFragment extends Fragment {
         englishHadith = (TextView) homeView.findViewById(R.id.englishHadith);
         arabicHadith = (TextView) homeView.findViewById(R.id.arabicHadith);
 
-        context = getActivity();
-        prefs = context.getSharedPreferences(PREF_FILE_NAME, context.MODE_PRIVATE);
+        final ImageButton showFullHadithButton = (ImageButton) homeView.findViewById(R.id.hadithExpandButton);
+
+        showFullHadithButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hadithExpanded) {
+                    englishHadith.setMaxLines(2);
+                    arabicHadith.setMaxLines(2);
+                    showFullHadithButton.setImageResource(R.drawable.ic_keyboard_arrow_down);
+                } else {
+                    englishHadith.setMaxLines(Integer.MAX_VALUE);
+                    arabicHadith.setMaxLines(Integer.MAX_VALUE);
+                    showFullHadithButton.setImageResource(R.drawable.ic_keyboard_arrow_up);
+                }
+                hadithExpanded = !hadithExpanded;
+            }
+        });
 
         setPrayerTimes();
         setDailyHadith();

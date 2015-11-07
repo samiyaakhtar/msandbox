@@ -289,28 +289,49 @@
             android:layout_margin="6dp"
             android:padding="6dp">
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hadith of the Day"
-                android:id="@+id/hadithSectionTitle"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="20sp"
-                android:layout_marginBottom="6dp" />
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hadith of the Day"
+                    android:id="@+id/hadithSectionTitle"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/hadithExpandButton"
+                    android:src="@drawable/ic_keyboard_arrow_down"
+                    android:background="@null" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="English hadith"
                 android:id="@+id/englishHadith"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:maxLines="2"
+                android:clickable="true"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Arabic hadith"
                 android:id="@+id/arabicHadith"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLines="2"
+                android:clickable="true" />
+
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
