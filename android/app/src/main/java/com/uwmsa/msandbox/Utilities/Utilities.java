@@ -17,7 +17,7 @@ import java.util.Date;
 public class Utilities {
 
     public enum NAVIGATION_DRAWER_ITEMS {
-        HOME, EVENTS, PRAYER_LOCATIONS
+        HOME, EVENTS, PRAYER_LOCATIONS, HALAL_FOOD_FINDER, PARTICIPATE, GALLERY
     }
 
     public static NAVIGATION_DRAWER_ITEMS getNavigationDrawerItem(int position) {

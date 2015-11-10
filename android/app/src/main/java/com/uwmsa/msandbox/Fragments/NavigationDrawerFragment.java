@@ -85,8 +85,8 @@ public class NavigationDrawerFragment extends android.support.v4.app.Fragment im
 
     public static List<NavigationBarOption> getData() {
         List<NavigationBarOption> navigationBarOptions = new ArrayList<>();
-        String[] optionTitles = {"Home Feed","Events","Prayer Information"};
-        int [] optionIcons = {R.drawable.ic_home_black_48dp, R.drawable.ic_event_black_48dp, R.drawable.ic_people_black_48dp};
+        String[] optionTitles = {"Home Feed", "Events", "Prayer Information", "Halal Food Finder", "Participate", "Gallery"};
+        int [] optionIcons = {R.drawable.ic_home_black_48dp, R.drawable.ic_event_black_48dp, R.drawable.ic_people_black_48dp, R.drawable.ic_local_dining_black_48dp, R.drawable.ic_group_work_black_48dp, R.drawable.ic_collections_black_48dp};
 
         for(int i = 0; i < optionTitles.length; i++ ) {
             NavigationBarOption currentOption = new NavigationBarOption();

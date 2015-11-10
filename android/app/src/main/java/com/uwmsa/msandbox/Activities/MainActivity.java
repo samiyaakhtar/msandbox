@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +20,11 @@ import android.view.View;
 import com.parse.ParseUser;
 import com.uwmsa.msandbox.Adapters.NavigationDrawerAdapter;
 import com.uwmsa.msandbox.Fragments.EventListFragment;
+import com.uwmsa.msandbox.Fragments.GalleryFragment;
+import com.uwmsa.msandbox.Fragments.HalalFoodFinderFragment;
 import com.uwmsa.msandbox.Fragments.HomeFragment;
 import com.uwmsa.msandbox.Fragments.NavigationDrawerFragment;
+import com.uwmsa.msandbox.Fragments.ParticipateFragment;
 import com.uwmsa.msandbox.Fragments.PlaceholderFragment;
 import com.uwmsa.msandbox.Fragments.PrayerLocationMainFragment;
 import com.uwmsa.msandbox.Models.*;
@@ -60,8 +64,17 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        navigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_home_layout), toolbar);
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_home_layout);
+        navigationDrawerFragment.setUp(R.id.navigation_drawer, mDrawerLayout, toolbar);
         navigationDrawerFragment.setItemSelectionListener(this);
+
+        if(savedInstanceState == null) {
+            Fragment fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = HomeFragment.newInstance(0);
+            fragmentManager.beginTransaction().replace(R.id.container_layout, fragment).commit();
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        }
     }
 
     public int getStatusBarHeight() {
@@ -79,10 +92,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         final FragmentManager fragmentManager = getSupportFragmentManager();
         ActionBar actionBar = getSupportActionBar();
 
-
         Utilities.NAVIGATION_DRAWER_ITEMS itemName = Utilities.getNavigationDrawerItem(position);
         switch (itemName) {
 
+            case HOME:
+                fragment = HomeFragment.newInstance(position);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                break;
             case EVENTS:
                 fragment = EventListFragment.newInstance(position);
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -91,8 +107,16 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 fragment = PrayerLocationMainFragment.newInstance(position);
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 break;
-            case HOME:
-                fragment = HomeFragment.newInstance(position);
+            case HALAL_FOOD_FINDER:
+                fragment = HalalFoodFinderFragment.newInstance(position);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                break;
+            case PARTICIPATE:
+                fragment = ParticipateFragment.newInstance(position);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                break;
+            case GALLERY:
+                fragment = GalleryFragment.newInstance(position);
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 break;
             default:
@@ -111,7 +135,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                         .commit();
             }
 
-        }, 250);
+        }, 50);
 
     }
 
@@ -126,6 +150,15 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 break;
             case PRAYER_LOCATIONS:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case HALAL_FOOD_FINDER:
+                mTitle = getString(R.string.title_section4);
+                break;
+            case PARTICIPATE:
+                mTitle = getString(R.string.title_section5);
+                break;
+            case GALLERY:
+                mTitle = getString(R.string.title_section6);
                 break;
         }
     }
