@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MSA Hackathon</title>
+	<!-- Compiled and minified Materialize CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+	<!-- Materialize Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<!-- Compiled and minified Materialize JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+	<!-- Custom styles -->
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<nav id="navbar">
+	    <div class="nav-wrapper">
+			<a href="#!" class="brand-logo">Logo</a>
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#home-link">Home</a></li>
+				<li><a href="#about-link">About</a></li>
+				<li><a href="#sponsors-link">Sponsors</a></li>
+				<li><a href="#faq-link">FAQ</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-demo">
+				<li><a href="#home-link">Home</a></li>
+				<li><a href="#about-link">About</a></li>
+				<li><a href="#sponsors-link">Sponsors</a></li>
+				<li><a href="#faq-link">FAQ</a></li>
+			</ul>
+	    </div>
+	  </nav>
+	<section id="home">
+		<a name="home-link"></a>
+		<h1 id="event-title">MSA Hackathon</h1>
+		<h5 class="event-subtitle">The MSA's first hackathon, happening March 5-6, 2016</h5>
+		<h5 class="event-subtitle">Sign up to be notified when registration opens!</h5>
+		<a id="register-button" class="btn-large" href="signup.html">Sign Up</a>
+	</section>
+	<section id="about">
+		<a name="about-link"></a>
+		<div id="about-info" class="container">
+			<h3>About</h3>
+			<h5>MSA Hackathon is the first annual Hackathon brought to you by the UWMSA</h5>
+			<p>Every individual possesses unique skills and ideas. When individuals come together and collaborate, great things can be achieved. One great field for use of new ideas and innovation is giving back to and improving our community. At this event, you'll have the opportunity to learn new skills from leaders in our community, collaborate with others to make something amazing, and of course, the chance to win prizes.</p>
+			<p>During the weekend of the event, you'll be tasked with creating and developing an idea that has the power to revolutionize your community. You'll have access to workshops where you can learn and hone your skills in tech, business, and other fields. You'll be able to talk to mentors and many other awesome individuals like yourself. Oh, and did we mention the free food and swag?</p>
+		</div>
+	</section>
+	<section id="sponsors">
+		<a name="sponsors-link"></a>
+		<div class="row">
+			
+		</div>
+	</section>
+	<section id="faq">
+		<a name="faq-link"></a>
+		<div id="faq-info" class="container">
+			<h3>FAQ</h3>
+			<ul class="collapsible popout" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header"><i class="material-icons">filter_drama</i>Where and where is MSA Hackathon happening?</div>
+					<div class="collapsible-body"><p>MSA Hackathon will be held at the University of Waterloo in Waterloo, ON, during the weekend of March 5-6, 2016.</p></div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">place</i>What do I bring?</div>
+					<div class="collapsible-body"><p>Bring with you a great attitude and a head full of creativity. In a non-existential extent, bring with you a change of clothes, toiletries, a laptop, and a notepad. Also make sure not to forget chargers for your electronic devices!</p></div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">whatshot</i>How much does it cost?</div>
+					<div class="collapsible-body"><p>The event is entirely free for you to attend. That includes a full weekend of food, swag, learning, doing, and fun.</p></div>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<footer id="footer" >
+		<div class="container">
+			<p>MSA hackathon | hackathon@uwmsa.com</p>
+		</div>
+	</footer>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $(".collapsible").collapsible();
+		    $(".button-collapse").sideNav({
+				closeOnClick: true
+			});
+
+			// hide .navbar first
+			$("#navbar").hide();
+
+			// fade in .navbar
+			$(function () {
+				$(window).scroll(function () {
+					// set distance user needs to scroll before we start fadeIn
+					if ($(this).scrollTop() > 80) {
+						$('#navbar').fadeIn();
+					} else {
+						$('#navbar').fadeOut();
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
