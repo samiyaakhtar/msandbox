@@ -53,7 +53,6 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
         String roomNumber = location.getRoomnumber();
         String description = location.getDescription();
 
-        holder.vBuilding.setText(building);
         holder.vRoomNumber.setText(roomNumber);
         holder.vDescription.setText(description);
 
@@ -109,7 +108,6 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
 
     public class PrayerLocationJumuahRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView vBuilding;
         protected TextView vRoomNumber;
         protected TextView vStatus;
         protected TextView vDescription;
@@ -119,7 +117,6 @@ public class PrayerLocationJumuahAdapter extends RecyclerView.Adapter<PrayerLoca
         public PrayerLocationJumuahRecyclerViewHolder(View v) {
             super(v);
             vButton = (ImageButton) v.findViewById(R.id.prayerLocation_present);
-            vBuilding = (TextView) v.findViewById(R.id.prayerLocation_building);
             vStatus = (TextView) v.findViewById(R.id.prayerLocation_status);
             vRoomNumber = (TextView) v.findViewById(R.id.prayerLocation_roomNumber);
             vDescription = (TextView) v.findViewById(R.id.prayerLocation_description);

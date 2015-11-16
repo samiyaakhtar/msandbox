@@ -50,11 +50,9 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
 
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
-        String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
         String description = location.getDescription();
 
-        holder.vBuilding.setText(building);
         holder.vRoomNumber.setText(roomNumber);
         holder.vDescription.setText(description);
 
@@ -113,7 +111,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     public class PrayerLocationDailyRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView vBuilding;
         protected TextView vRoomNumber;
         protected TextView vStatus;
         protected TextView vDescription;
@@ -123,7 +120,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         public PrayerLocationDailyRecyclerViewHolder(View v) {
             super(v);
             vButton = (ImageButton) v.findViewById(R.id.prayerLocation_present);
-            vBuilding = (TextView) v.findViewById(R.id.prayerLocation_building);
             vStatus = (TextView) v.findViewById(R.id.prayerLocation_status);
             vRoomNumber = (TextView) v.findViewById(R.id.prayerLocation_roomNumber);
             vDescription = (TextView) v.findViewById(R.id.prayerLocation_description);
