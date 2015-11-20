@@ -1,24 +1,20 @@
 package com.uwmsa.msandbox.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.uwmsa.msandbox.Activities.MainActivity;
 import com.uwmsa.msandbox.Adapters.PrayerLocationDailyAdapter;
 import com.uwmsa.msandbox.Adapters.PrayerSectionedRecyclerViewAdapter;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
@@ -52,7 +48,7 @@ public class PrayerLocationListFragment extends Fragment implements SwipeRefresh
 
         context = getActivity();
 
-        View rootView = inflater.inflate(R.layout.fragment_prayer_location_daily, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_prayer_location_list, container, false);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refreshDaily);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         try {
