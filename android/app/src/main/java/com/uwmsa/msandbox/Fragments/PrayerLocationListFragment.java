@@ -33,7 +33,7 @@ import io.karim.MaterialTabs;
 /**
  * Created by dx179 on 3/27/15.
  */
-public class PrayerLocationDailyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PrayerLocationListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mPrayerRoomRecyclerView;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -42,7 +42,7 @@ public class PrayerLocationDailyFragment extends Fragment implements SwipeRefres
     boolean constructorCalled;
     private Context context;
 
-    public PrayerLocationDailyFragment() {
+    public PrayerLocationListFragment() {
         constructorCalled = true;
     }
 

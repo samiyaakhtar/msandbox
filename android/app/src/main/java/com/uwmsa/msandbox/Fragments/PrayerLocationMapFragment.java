@@ -23,14 +23,14 @@ import java.util.List;
 /**
  * Created by dx179 on 3/27/15.
  */
-public class PrayerLocationJumuahFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PrayerLocationMapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mPrayerRoomRecyclerView;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     boolean constructorCalled;
 
-    public PrayerLocationJumuahFragment() {
+    public PrayerLocationMapFragment() {
         constructorCalled = true;
     }
 
