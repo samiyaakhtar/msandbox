@@ -1,32 +1,31 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.flipboard.bottomsheet.BottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.uwmsa.msandbox.Activities.EventDetailsActivity"
-    tools:ignore="MergeRootFrame">
+    android:layout_height="match_parent">
 
+    <ScrollView
+        android:id="@+id/ed_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:paddingBottom="20dp">
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:id="@+id/ed_scroll_view"
-            android:paddingBottom="20dp">
+            android:layout_height="match_parent">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                         <com.parse.ParseImageView
                             android:id="@+id/eventDetails_thumbnail"
@@ -35,155 +34,167 @@
                             android:background="#d3d3d3"
                             android:scaleType="fitXY" />
 
-                        <RelativeLayout
-                            android:id="@+id/relLayout"
+
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="250dp"
+                            android:background="@drawable/picture_gradient" />
 
-                            <TextView
-                                android:id="@+id/ed_start_end_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_marginBottom="20dp"
-                                android:layout_marginLeft="@dimen/ed_textviews_left_margin"
-                                android:text="Start / End Time"
-                                android:textColor="#ADAEAA" />
-
-                            <TextView
-                                android:id="@+id/ed_title_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_above="@+id/ed_start_end_tv"
-                                android:layout_alignLeft="@+id/ed_start_end_tv"
-                                android:layout_alignStart="@+id/ed_start_end_tv"
-                                android:layout_marginBottom="5dp"
-                                android:text="Event Title"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="#FFFFFF"
-                                android:textSize="25dp" />
-
-
-                        </RelativeLayout>
                     </FrameLayout>
 
                     <RelativeLayout
+                        android:id="@+id/relLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/ed_start_end_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="20dp"
                             android:layout_marginLeft="@dimen/ed_textviews_left_margin"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/ed_venue_name"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/event_detail_orange"
-                            android:textSize="@dimen/ed_fixed_textviews_size" />
+                            android:text="Start / End Time"
+                            android:textColor="#ADAEAA" />
 
                         <TextView
-                            android:id="@+id/ed_location_venue_tv"
+                            android:id="@+id/ed_title_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/textView2"
-                            android:layout_alignStart="@+id/textView2"
-                            android:layout_below="@+id/textView2"
-                            android:layout_marginTop="5dp"
-                            android:text="Location of Venue"
+                            android:layout_above="@+id/ed_start_end_tv"
+                            android:layout_alignLeft="@+id/ed_start_end_tv"
+                            android:layout_alignStart="@+id/ed_start_end_tv"
+                            android:layout_marginBottom="5dp"
+                            android:text="Event Title"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/ed_location_venue_tv"
-                            android:layout_alignStart="@+id/ed_location_venue_tv"
-                            android:layout_below="@+id/ed_location_venue_tv"
-                            android:layout_marginTop="30dp"
-                            android:text="@string/ed_ticket_price"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/event_detail_orange"
-                            android:textSize="@dimen/ed_fixed_textviews_size" />
-
-                        <TextView
-                            android:id="@+id/ed_price_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/textView4"
-                            android:layout_alignStart="@+id/textView4"
-                            android:layout_below="@+id/textView4"
-                            android:layout_marginTop="5dp"
-                            android:text="$ Price"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                        <Button
-                            android:id="@+id/ed_buy_ticket_button"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView4"
-                            android:layout_marginLeft="25dp"
-                            android:layout_toEndOf="@+id/textView2"
-                            android:layout_toRightOf="@+id/textView2"
-                            android:background="@color/event_detail_orange"
-                            android:text="Buy Ticket"
                             android:textColor="#FFFFFF"
-                            android:textSize="14dp"
-                            android:textStyle="bold" />
+                            android:textSize="25dp" />
 
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/ed_price_tv"
-                            android:layout_alignStart="@+id/ed_price_tv"
-                            android:layout_below="@+id/ed_price_tv"
-                            android:layout_marginTop="30dp"
-                            android:text="@string/ed_more_info_title"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/event_detail_orange"
-                            android:textSize="@dimen/ed_fixed_textviews_size" />
 
-                        <TextView
-                            android:id="@+id/ed_more_info_tv"
-                            android:layout_width="250dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/textView6"
-                            android:layout_alignStart="@+id/textView6"
-                            android:layout_below="@+id/textView6"
-                            android:singleLine="false"
-                            android:text="Info Info"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
                     </RelativeLayout>
-                </LinearLayout>
+                </FrameLayout>
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/ed_heart_left_margin"
-                    android:layout_marginTop="230dp"
-                    android:adjustViewBounds="false"
-                    android:background="@drawable/ed_heart_background_circle"
-                    android:elevation="8dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/heart_shape_button" />
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp">
+                    android:layout_height="wrap_content">
 
-                    <include layout="@layout/toolbar_transparent_layout" />
-                    <include layout="@layout/container_layout" />
-                </LinearLayout>
-            </FrameLayout>
-        </ScrollView>
-</LinearLayout>
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/ed_textviews_left_margin"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/ed_venue_name"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/event_detail_orange"
+                        android:textSize="@dimen/ed_fixed_textviews_size" />
+
+                    <TextView
+                        android:id="@+id/ed_location_venue_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/textView2"
+                        android:layout_alignStart="@+id/textView2"
+                        android:layout_below="@+id/textView2"
+                        android:layout_marginTop="5dp"
+                        android:text="Location of Venue"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/ed_location_venue_tv"
+                        android:layout_alignStart="@+id/ed_location_venue_tv"
+                        android:layout_below="@+id/ed_location_venue_tv"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/ed_ticket_price"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/event_detail_orange"
+                        android:textSize="@dimen/ed_fixed_textviews_size" />
+
+                    <TextView
+                        android:id="@+id/ed_price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/textView4"
+                        android:layout_alignStart="@+id/textView4"
+                        android:layout_below="@+id/textView4"
+                        android:layout_marginTop="5dp"
+                        android:text="$ Price"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="30sp" />
+
+                    <Button
+                        android:id="@+id/ed_buy_ticket_button"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView4"
+                        android:layout_marginLeft="45dp"
+                        android:layout_toEndOf="@+id/textView2"
+                        android:layout_toRightOf="@+id/textView2"
+                        android:background="@drawable/rounded_buy_button"
+                        android:text="Buy Ticket"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/ed_price_tv"
+                        android:layout_alignStart="@+id/ed_price_tv"
+                        android:layout_below="@+id/ed_price_tv"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/ed_more_info_title"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/event_detail_orange"
+                        android:textSize="@dimen/ed_fixed_textviews_size" />
+
+                    <TextView
+                        android:id="@+id/ed_more_info_tv"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/textView6"
+                        android:layout_alignStart="@+id/textView6"
+                        android:layout_below="@+id/textView6"
+                        android:singleLine="false"
+                        android:text="Info Info"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/ed_heart_left_margin"
+                android:layout_marginTop="230dp"
+                android:adjustViewBounds="false"
+                android:background="@drawable/ed_heart_background_circle"
+                android:elevation="8dp"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/white_heart_icon" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <include layout="@layout/toolbar_transparent_layout" />
+
+                <include layout="@layout/container_layout" />
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+</com.flipboard.bottomsheet.BottomSheetLayout>

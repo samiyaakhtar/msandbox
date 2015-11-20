@@ -8,12 +8,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.parse.ParseImageView
-            android:id="@+id/event_thumbnail"
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/event_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="right"
+            android:text="Category"
+            android:textColor="#f6f6f6"
+            android:textSize="14dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="75dp"
+            android:layout_marginRight="10dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:id="@+id/event_thumbnail_flayout"
             android:layout_height="100dp"
-            android:layout_marginBottom="2dp"
-            android:scaleType="fitXY"/>
+            android:layout_marginBottom="2dp">
+
+            <com.parse.ParseImageView
+                android:id="@+id/event_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/picture_gradient" />
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/event_linLayoutTitle"
@@ -27,48 +52,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:paddingLeft="10dip"
                 android:layout_marginTop="60dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingLeft="10dip"
                 android:text="Title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
                 android:textIsSelectable="true"
-                android:textSize="20sp"
-                android:textColor="#ffffff"/>
+                android:textSize="20sp" />
+
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/event_thumbnail_flayout"
+            android:padding="10dp">
 
         <TextView
             android:id="@+id/event_startTime"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
+            android:gravity="center_vertical"
             android:text="Time"
-            android:gravity="center_vertical"
             android:textColor="@android:color/black"
             android:textSize="14dp"
-            android:paddingLeft="10dip"
-            android:layout_below="@+id/event_thumbnail"/>
+            android:maxWidth="180dp" />
 
-        <TextView
-            android:id="@+id/event_category"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:text="Category"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            android:textSize="14dp"
-            android:paddingLeft="10dip"
-            android:layout_toRightOf="@+id/event_startTime"
-            android:layout_below="@+id/event_thumbnail"/>
 
         <ImageView
             android:id="@+id/event_likeImageView"
             android:layout_width="25dp"
             android:layout_height="20dp"
             android:scaleType="fitXY"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/event_category"
-            android:layout_below="@+id/event_thumbnail"
-            android:src="@drawable/ic_like"/>
+            android:src="@drawable/ic_like"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>
