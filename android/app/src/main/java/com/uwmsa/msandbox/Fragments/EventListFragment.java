@@ -96,15 +96,11 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
                 @Override
                 public int getSpanSize(int position) {
 
-                    if(position == 0)
-                        return 2;
-
                     if(position % 3 == 0 ){
                         return 2;
                     }else{
                         return 1;
                     }
-
 
                     //Check out the width pattern this creates, at the bottom of this file
                 }

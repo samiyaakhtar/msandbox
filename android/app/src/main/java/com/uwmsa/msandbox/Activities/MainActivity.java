@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         navigationDrawerFragment.setUp(R.id.navigation_drawer, mDrawerLayout, toolbar);
         navigationDrawerFragment.setItemSelectionListener(this);
 
-        if(comingFromEventDetail){
+        if (comingFromEventDetail) {
             Fragment fragment;
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragment = EventListFragment.newInstance(0);
@@ -77,14 +77,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             mDrawerLayout.closeDrawer(Gravity.LEFT);
             mTitle = getString(R.string.title_section2);
             comingFromEventDetail = false;
-        }else {
-            if (savedInstanceState == null) {
-                Fragment fragment;
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragment = HomeFragment.newInstance(0);
-                fragmentManager.beginTransaction().replace(R.id.container_layout, fragment).commit();
-                mDrawerLayout.closeDrawer(Gravity.LEFT);
-            }
+        } else if (savedInstanceState == null) {
+            Fragment fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = HomeFragment.newInstance(0);
+            fragmentManager.beginTransaction().replace(R.id.container_layout, fragment).commit();
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
         }
     }
 

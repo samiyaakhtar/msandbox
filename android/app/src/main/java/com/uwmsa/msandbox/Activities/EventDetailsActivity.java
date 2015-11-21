@@ -1,5 +1,6 @@
 package com.uwmsa.msandbox.Activities;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -7,6 +8,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.OnNavigationListener;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ShareActionProvider;
 
 import android.content.Context;
@@ -23,9 +25,11 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,16 +60,27 @@ public class EventDetailsActivity extends ActionBarActivity {
     private TextView vDescription;
     private TextView vTitle;
 
+    private String shareMessage = "";
+
     private ScrollView scrollView;
     private Toolbar toolbar;
-    ShareActionProvider shareActionProvider;
-    BottomSheetLayout bottomSheetLayout;
+    private ShareActionProvider shareActionProvider;
+    private BottomSheetLayout bottomSheetLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
         context = this;
+
+        Button buyButton = (Button) findViewById(R.id.ed_buy_ticket_button);
+        buyButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+               showAlertDialogFeatureNotAvailable();
+            }
+        });
+
 
         bottomSheetLayout = (BottomSheetLayout) findViewById(R.id.container);
 
@@ -104,51 +119,30 @@ public class EventDetailsActivity extends ActionBarActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.eventdetails_menu, menu);
 
-//
-//        // Create the share Intent
-//        String playStoreLink = "https://play.google.com/store/apps/details?id=" + getPackageName();
-//        String yourShareText = "Test Share Link" + playStoreLink;
-//        Intent shareIntent = ShareCompat.IntentBuilder.from(this).setType("text/plain").setText(yourShareText).getIntent();
-//
-//
-//        MenuItem menuItem = menu.findItem(R.id.ed_action_share);
-//        shareActionProvider = new ShareActionProvider(this);
-//        shareActionProvider.setShareIntent(shareIntent);
-//        MenuItemCompat.setActionProvider(menuItem, shareActionProvider);
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-//        Toast.makeText(context, "SOME SELECTED", Toast.LENGTH_LONG).show();
-//        if(item.getItemId() == R.id.ed_action_share){
-//            Toast.makeText(context, "SHARE SELECTED", Toast.LENGTH_LONG).show();
-//            onShareAction();
-//        }
-
-        Toast.makeText(context, "SOME SELECTED", Toast.LENGTH_LONG).show();
-        if(item.getItemId() == R.id.ed_action_share){
-            Toast.makeText(context, "SHARE SELECTED", Toast.LENGTH_LONG).show();
+        if (item.getItemId() == R.id.ed_action_share) {
             bottomSheetShareAction();
+        } else if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
-
-
-
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
-    private void onShareAction(){
-        // Create the share Intent
-        String playStoreLink = "https://play.google.com/store/apps/details?id=" + getPackageName();
-        String yourShareText = "Test Share Link" + playStoreLink;
-        Intent shareIntent = ShareCompat.IntentBuilder.from(this).setType("text/plain").setText(yourShareText).getIntent();
-        // Set the share Intent
-        if (shareActionProvider != null) {
-            shareActionProvider.setShareIntent(shareIntent);
-        }
+
+    private void showAlertDialogFeatureNotAvailable(){
+        new AlertDialog.Builder(context)
+                .setTitle("Feature Not Available")
+                .setMessage("Sorry, we're working hard to bring this to you ")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .show();
     }
 
     protected void fillEventDetailsView() {
@@ -157,7 +151,7 @@ public class EventDetailsActivity extends ActionBarActivity {
         vLocation.setText(mEvent.getLocation());
 
         DecimalFormat df = new DecimalFormat("#.##");
-        vPrice.setText("$"+df.format(mEvent.getTicketPrice().doubleValue()));
+        vPrice.setText("$" + df.format(mEvent.getTicketPrice().doubleValue()));
 
         vImageView.setParseFile(mEvent.getImage());
         vImageView.loadInBackground();
@@ -166,7 +160,7 @@ public class EventDetailsActivity extends ActionBarActivity {
     }
 
 
-    private String getFormattedStartEndDate(){
+    private String getFormattedStartEndDate() {
         String date;
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
@@ -194,16 +188,22 @@ public class EventDetailsActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        MainActivity.comingFromEventDetail =true;
+        MainActivity.comingFromEventDetail = true;
         super.onBackPressed();
     }
 
 
+    private void bottomSheetShareAction() {
 
-    private void bottomSheetShareAction(){
+        if (mEvent != null && !mEvent.getTitle().equals("")) {
+            shareMessage = "Check out " + mEvent.getTitle() + " being held by the MSA!";
+        } else {
+            //Case if event was null or for some reason the information was empty from backend
+            shareMessage = "Check out the UW MSA App for various cool events and useful information";
+        }
 
         final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "This is the MSA APP");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
         shareIntent.setType("text/plain");
         IntentPickerSheetView intentPickerSheet = new IntentPickerSheetView(EventDetailsActivity.this, shareIntent, "Share with...", new IntentPickerSheetView.OnIntentPickedListener() {
             @Override
@@ -226,11 +226,6 @@ public class EventDetailsActivity extends ActionBarActivity {
                 return rhs.label.compareTo(lhs.label);
             }
         });
-
-        // Add custom mixin example
-//        Drawable customDrawable = ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_launcher, null);
-//        IntentPickerSheetView.ActivityInfo customInfo = new IntentPickerSheetView.ActivityInfo(customDrawable, "Custom mix-in", EventDetailsActivity.this, MainActivity.class);
-//        intentPickerSheet.setMixins(Collections.singletonList(customInfo));
 
         bottomSheetLayout.showWithSheetView(intentPickerSheet);
     }
