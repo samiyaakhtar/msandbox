@@ -43,8 +43,30 @@ section#about p {
 	font-size: 17px;
 }
 
+section#benefits {
+	background-color: rgb(13, 20, 42);
+	color: white;
+}
+
+section#benefits #benefits-info {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+section#benefits #benefits-info ul {
+	list-style-type: circle;
+}
+
+section#sponsors #sponsors-info {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
 section#faq {
 	background-color: rgb(13, 20, 42);
+}
+
+section#faq #faq-info {
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
@@ -57,14 +79,48 @@ section#faq p {
 	background-color: white;
 }
 
+section#getInvolved {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
 
+.get-involved-title {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+section#getInvolved div.get-involved-section {
+	text-align: center;
+	padding: 0px 30px;
+}
+
+div.get-involved-section p {
+	font-size: 18px;
+}
+
+a.get-involved-button {
+	margin-top: 20px;
+	margin-bottom: 30px;
+	color: white;
+	background-color: rgb(13, 20, 42);
+	border: 4px solid rgb(13, 20, 42);
+	font-size: 20px;
+	line-height: 48px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+a.get-involved-button:hover {
+	color: rgb(13, 20, 42);
+	background-color: white;
+	border: 4px solid rgb(13, 20, 42);
+}
 
 footer#footer {
 	background-color: rgb(13, 20, 42);
 	color: #D0D0D0;
 	padding-top: 15px;
 	padding-bottom: 15px;
-	border-top: 3px solid white;
 }
 
 footer#footer p {
