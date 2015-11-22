@@ -16,6 +16,7 @@ import com.uwmsa.msandbox.R;
 import com.uwmsa.msandbox.Utilities.AnimateUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,12 +30,14 @@ public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocati
     static final String joinSecondEmptyLocation = "addBlackBlur";
 
     private boolean fromRefresh;
+    private ArrayList<Boolean> positionsRefreshed;
 
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
     public PrayerLocationListAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
         prayerLocationDailyList = locations;
+        positionsRefreshed = new ArrayList<>(Collections.nCopies(prayerLocationDailyList.size(), false));
         this.fromRefresh = fromRefresh;
         RefreshBuffer(true);
     }
@@ -92,8 +95,9 @@ public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocati
 
         holder.mLocation = location;
 
-        if(fromRefresh) {
+        if (fromRefresh && !positionsRefreshed.get(position)) {
             AnimateUtils.animate(holder);
+            positionsRefreshed.set(position, true);
         }
     }
 
