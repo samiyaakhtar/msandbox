@@ -107,13 +107,13 @@ public class PrayerLocationMapFragment extends Fragment implements OnMapReadyCal
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng uw = new LatLng(43.4722893, -80.5470463);
-        mMap.addMarker(new MarkerOptions()
-                .position(uw)
-                .title("UW")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+        LatLng uw = new LatLng(43.472230, -80.5440463);
+//        mMap.addMarker(new MarkerOptions()
+//                .position(uw)
+//                .title("UW")
+//                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(uw));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
 
         getLocations();
     }
