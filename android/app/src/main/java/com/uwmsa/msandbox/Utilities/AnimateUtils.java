@@ -1,14 +1,10 @@
 package com.uwmsa.msandbox.Utilities;
 
-import android.animation.ObjectAnimator;
-import android.os.Handler;
-
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.uwmsa.msandbox.Adapters.EventAdapter;
-import com.uwmsa.msandbox.Adapters.PrayerLocationDailyAdapter.*;
+import com.uwmsa.msandbox.Adapters.PrayerLocationListAdapter.*;
 import com.uwmsa.msandbox.Adapters.PrayerLocationJumuahAdapter.*;
-import com.uwmsa.msandbox.R;
 
 /**
  * Created by Irfan Sharif on 8/4/2015.

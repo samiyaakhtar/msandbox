@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.uwmsa.msandbox.Adapters.PrayerLocationDailyAdapter;
+import com.uwmsa.msandbox.Adapters.PrayerLocationListAdapter;
 import com.uwmsa.msandbox.Adapters.PrayerSectionedRecyclerViewAdapter;
 import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
@@ -89,7 +89,7 @@ public class PrayerLocationListFragment extends Fragment implements SwipeRefresh
                     List<PrayerRoomLocation> orderedPrayerRoomLocations = new ArrayList<>(dailyPrayerRoomLocations);
                     orderedPrayerRoomLocations.addAll(jumuahPrayerRoomLocations);
 
-                    PrayerLocationDailyAdapter adapter = new PrayerLocationDailyAdapter(orderedPrayerRoomLocations, mSwipeRefreshLayout.isRefreshing() || constructorCalled);
+                    PrayerLocationListAdapter adapter = new PrayerLocationListAdapter(orderedPrayerRoomLocations, mSwipeRefreshLayout.isRefreshing() || constructorCalled);
                     constructorCalled = false;
 
                     //This is the code to provide a sectioned list

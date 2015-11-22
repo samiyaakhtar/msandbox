@@ -1,7 +1,5 @@
 package com.uwmsa.msandbox.Adapters;
 
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocationDailyAdapter.PrayerLocationDailyRecyclerViewHolder> {
+public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocationListAdapter.PrayerLocationDailyRecyclerViewHolder> {
 
     List<PrayerRoomLocation> prayerLocationDailyList;
     static final String joinEmptyLocation = "addBlack";
@@ -35,7 +33,7 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
-    public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
+    public PrayerLocationListAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
         prayerLocationDailyList = locations;
         this.fromRefresh = fromRefresh;
         RefreshBuffer(true);
