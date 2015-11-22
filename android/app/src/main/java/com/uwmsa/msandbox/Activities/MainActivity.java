@@ -34,6 +34,7 @@ import com.uwmsa.msandbox.R;
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.ItemSelectionListener {
 
     private CharSequence mTitle;
+    public static boolean comingFromEventDetail = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,15 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         navigationDrawerFragment.setUp(R.id.navigation_drawer, mDrawerLayout, toolbar);
         navigationDrawerFragment.setItemSelectionListener(this);
 
-        if(savedInstanceState == null) {
+        if (comingFromEventDetail) {
+            Fragment fragment;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment = EventListFragment.newInstance(0);
+            fragmentManager.beginTransaction().replace(R.id.container_layout, fragment).commit();
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+            mTitle = getString(R.string.title_section2);
+            comingFromEventDetail = false;
+        } else if (savedInstanceState == null) {
             Fragment fragment;
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragment = HomeFragment.newInstance(0);

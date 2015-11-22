@@ -91,11 +91,18 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
             LinearLayoutManager llm = new LinearLayoutManager(getActivity());
             llm.setOrientation(LinearLayoutManager.VERTICAL);
 
-            GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
+            GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
             manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return (3 - position % 3);
+
+                    if(position % 3 == 0 ){
+                        return 2;
+                    }else{
+                        return 1;
+                    }
+
+                    //Check out the width pattern this creates, at the bottom of this file
                 }
             });
             mEventRecyclerView.setLayoutManager(manager);
@@ -130,3 +137,28 @@ public class EventListFragment extends Fragment implements EventAdapter.OnEventC
         fillEventsRecyclerView();
     }
 }
+
+
+/*
+
+Width Pattern
+Position ==> Width
+0 ==> 2
+1 ==> 1
+2 ==> 1
+3 ==> 2
+4 ==> 1
+5 ==> 1
+6 ==> 2
+7 ==> 1
+8 ==> 1
+9 ==> 2
+10 => 1
+11 => 1
+12 => 2
+13 => 1
+14 => 1
+15 => 2
+16 => 1
+
+ */
