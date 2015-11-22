@@ -11,6 +11,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
@@ -68,38 +70,23 @@ public class PrayerLocationMapFragment extends Fragment implements OnMapReadyCal
             @Override
             public void done(List<PrayerRoomLocation> prayerRoomLocations, ParseException e) {
                 if (e == null) {
-                    System.out.println("Got locations");
-
                     for (int i = 0; i < prayerRoomLocations.size(); i++) {
-                        ParseGeoPoint position = prayerRoomLocations.get(i).getLocation();
-                        System.out.println(position);
+                        PrayerRoomLocation prayerRoom = prayerRoomLocations.get(i);
+                        ParseGeoPoint position = prayerRoom.getLocation();
                         if (position != null) {
                             LatLng point = new LatLng(position.getLatitude(), position.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(point).title(prayerRoomLocations.get(i).getRoomnumber()));
-                            System.out.println("Added marker");
+                            BitmapDescriptor iconColour = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+
+                            if (prayerRoom.getType().equals("Daily")) {
+                                iconColour = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                            }
+
+                            mMap.addMarker(new MarkerOptions()
+                                .position(point)
+                                .title(prayerRoom.getRoomnumber())
+                                .icon(iconColour));
                         }
                     }
-//
-//                    PrayerLocationListAdapter adapter = new PrayerLocationListAdapter(orderedPrayerRoomLocations, mSwipeRefreshLayout.isRefreshing() || constructorCalled);
-//                    constructorCalled = false;
-//
-//                    //This is the code to provide a sectioned list
-//                    List<PrayerSectionedRecyclerViewAdapter.Section> sections =
-//                            new ArrayList<PrayerSectionedRecyclerViewAdapter.Section>();
-//
-//                    //Sections
-//                    sections.add(new PrayerSectionedRecyclerViewAdapter.Section(0, "Daily Prayers"));
-//                    sections.add(new PrayerSectionedRecyclerViewAdapter.Section(dailyPrayerRoomLocations.size(), "Jumuah Prayers"));
-//
-//                    //Add your adapter to the sectionAdapter
-//                    PrayerSectionedRecyclerViewAdapter.Section[] dummy = new PrayerSectionedRecyclerViewAdapter.Section[sections.size()];
-//                    PrayerSectionedRecyclerViewAdapter mSectionedAdapter = new
-//                            PrayerSectionedRecyclerViewAdapter(context, R.layout.prayer_section_title, R.id.section_text, adapter);
-//                    mSectionedAdapter.setSections(sections.toArray(dummy));
-//
-//                    mPrayerRoomRecyclerView.setAdapter(mSectionedAdapter);
-//                    if (mSwipeRefreshLayout.isRefreshing())
-//                        mSwipeRefreshLayout.setRefreshing(false);
                 } else {
                     // TODO: handle error
                 }
@@ -121,7 +108,10 @@ public class PrayerLocationMapFragment extends Fragment implements OnMapReadyCal
 
         // Add a marker in Sydney and move the camera
         LatLng uw = new LatLng(43.4722893, -80.5470463);
-        mMap.addMarker(new MarkerOptions().position(uw).title("UW"));
+        mMap.addMarker(new MarkerOptions()
+                .position(uw)
+                .title("UW")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(uw));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
 
