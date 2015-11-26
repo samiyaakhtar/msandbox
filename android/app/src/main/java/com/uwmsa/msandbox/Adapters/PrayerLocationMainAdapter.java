@@ -1,15 +1,11 @@
 package com.uwmsa.msandbox.Adapters;
 
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
-import com.uwmsa.msandbox.Fragments.PrayerLocationDailyFragment;
-import com.uwmsa.msandbox.Fragments.PrayerLocationJumuahFragment;
+import com.uwmsa.msandbox.Fragments.PrayerLocationListFragment;
+import com.uwmsa.msandbox.Fragments.PrayerLocationMapFragment;
 
 import io.karim.MaterialTabs;
 
@@ -18,7 +14,7 @@ import io.karim.MaterialTabs;
  */
 public class PrayerLocationMainAdapter extends FragmentStatePagerAdapter {
 
-    private String[] tabTitles = { "Daily", "Jumuah" };
+    private String[] tabTitles = { "List", "Map" };
     private MaterialTabs tabs;
     public PrayerLocationMainAdapter(FragmentManager fm, MaterialTabs tabs) {
         super(fm);
@@ -34,9 +30,9 @@ public class PrayerLocationMainAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new PrayerLocationDailyFragment();
+                return new PrayerLocationListFragment();
             case 1:
-                return new PrayerLocationJumuahFragment();
+                return new PrayerLocationMapFragment();
             default:
                 return new Fragment();
         }

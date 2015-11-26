@@ -1,6 +1,7 @@
 package com.uwmsa.msandbox.Models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 /**
@@ -14,6 +15,7 @@ public class PrayerRoomLocation extends ParseObject {
     public static final String BUILDING = "building";
     public static final String DESCRIPTION = "Description";
     public static final String TYPE = "type";
+    public static final String LOCATION = "location";
 
     public PrayerRoomLocation() {    }
 
@@ -35,5 +37,9 @@ public class PrayerRoomLocation extends ParseObject {
 
     public String getType() {
         return getString(TYPE);
+    }
+
+    public ParseGeoPoint getLocation() {
+        return getParseGeoPoint(LOCATION);
     }
 }

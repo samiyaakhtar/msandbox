@@ -1,7 +1,5 @@
 package com.uwmsa.msandbox.Adapters;
 
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,10 +16,11 @@ import com.uwmsa.msandbox.R;
 import com.uwmsa.msandbox.Utilities.AnimateUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocationDailyAdapter.PrayerLocationDailyRecyclerViewHolder> {
+public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocationListAdapter.PrayerLocationDailyRecyclerViewHolder> {
 
     List<PrayerRoomLocation> prayerLocationDailyList;
     static final String joinEmptyLocation = "addBlack";
@@ -31,12 +30,14 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     static final String joinSecondEmptyLocation = "addBlackBlur";
 
     private boolean fromRefresh;
+    private ArrayList<Boolean> positionsRefreshed;
 
     Boolean userPresent;
     List<ParseObject> locationsPresent;
 
-    public PrayerLocationDailyAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
+    public PrayerLocationListAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
         prayerLocationDailyList = locations;
+        positionsRefreshed = new ArrayList<>(Collections.nCopies(prayerLocationDailyList.size(), false));
         this.fromRefresh = fromRefresh;
         RefreshBuffer(true);
     }
@@ -50,11 +51,9 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
 
         PrayerRoomLocation location = prayerLocationDailyList.get(position);
-        String building = location.getBuilding();
         String roomNumber = location.getRoomnumber();
         String description = location.getDescription();
 
-        holder.vBuilding.setText(building);
         holder.vRoomNumber.setText(roomNumber);
         holder.vDescription.setText(description);
 
@@ -96,8 +95,9 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
         holder.mLocation = location;
 
-        if(fromRefresh) {
+        if (fromRefresh && !positionsRefreshed.get(position)) {
             AnimateUtils.animate(holder);
+            positionsRefreshed.set(position, true);
         }
     }
 
@@ -113,7 +113,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
 
     public class PrayerLocationDailyRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView vBuilding;
         protected TextView vRoomNumber;
         protected TextView vStatus;
         protected TextView vDescription;
@@ -123,7 +122,6 @@ public class PrayerLocationDailyAdapter extends RecyclerView.Adapter<PrayerLocat
         public PrayerLocationDailyRecyclerViewHolder(View v) {
             super(v);
             vButton = (ImageButton) v.findViewById(R.id.prayerLocation_present);
-            vBuilding = (TextView) v.findViewById(R.id.prayerLocation_building);
             vStatus = (TextView) v.findViewById(R.id.prayerLocation_status);
             vRoomNumber = (TextView) v.findViewById(R.id.prayerLocation_roomNumber);
             vDescription = (TextView) v.findViewById(R.id.prayerLocation_description);
