@@ -71,6 +71,7 @@ public class PrayerLocationListFragment extends Fragment implements SwipeRefresh
         String[] prayerTypes = {"Daily", "Jumuah"};
         ParseQuery<PrayerRoomLocation> query = ParseQuery.getQuery(PrayerRoomLocation.class);
         query.whereContainedIn(PrayerRoomLocation.TYPE, Arrays.asList(prayerTypes));
+        query.whereEqualTo("approved", true);
         query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
         query.findInBackground(new FindCallback<PrayerRoomLocation>() {
             @Override

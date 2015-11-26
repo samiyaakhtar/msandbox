@@ -58,7 +58,11 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
                 android:textIsSelectable="true"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true" />
 
         </LinearLayout>
 
