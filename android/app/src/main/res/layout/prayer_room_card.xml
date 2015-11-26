@@ -44,11 +44,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Closed"
+                android:text="Code: None"
                 android:textSize="16sp"
                 android:textColor="#868686"
-                android:textAllCaps="true"
-                android:id="@+id/prayerLocation_status"
+                android:id="@+id/prayerLocation_code"
                 android:layout_marginLeft="5dp"
                 android:paddingRight="20dp" />
 

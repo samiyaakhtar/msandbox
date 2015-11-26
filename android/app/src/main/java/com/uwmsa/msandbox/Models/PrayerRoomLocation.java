@@ -4,6 +4,8 @@ import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
+import org.json.JSONObject;
+
 /**
  * Created by dx179 on 3/25/15.
  */
@@ -16,6 +18,7 @@ public class PrayerRoomLocation extends ParseObject {
     public static final String DESCRIPTION = "Description";
     public static final String TYPE = "type";
     public static final String LOCATION = "location";
+    public static final String ENTRYCODE = "entryCode";
 
     public PrayerRoomLocation() {    }
 
@@ -41,5 +44,9 @@ public class PrayerRoomLocation extends ParseObject {
 
     public ParseGeoPoint getLocation() {
         return getParseGeoPoint(LOCATION);
+    }
+
+    public JSONObject getEntryCodeObj() {
+        return getJSONObject(ENTRYCODE);
     }
 }
