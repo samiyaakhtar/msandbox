@@ -15,14 +15,18 @@ import com.uwmsa.msandbox.Models.PrayerRoomLocation;
 import com.uwmsa.msandbox.R;
 import com.uwmsa.msandbox.Utilities.AnimateUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocationListAdapter.PrayerLocationDailyRecyclerViewHolder> {
 
-    List<PrayerRoomLocation> prayerLocationDailyList;
+    List<PrayerRoomLocation> prayerLocationList;
     static final String joinEmptyLocation = "addBlack";
     static final String joinNonEmptyLocation = "addOrange";
     static final String leaveNonEmptyLocation = "removeOrange";
@@ -36,26 +40,69 @@ public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocati
     List<ParseObject> locationsPresent;
 
     public PrayerLocationListAdapter(List<PrayerRoomLocation> locations, boolean fromRefresh) {
-        prayerLocationDailyList = locations;
-        positionsRefreshed = new ArrayList<>(Collections.nCopies(prayerLocationDailyList.size(), false));
+        prayerLocationList = locations;
+        positionsRefreshed = new ArrayList<>(Collections.nCopies(prayerLocationList.size(), false));
         this.fromRefresh = fromRefresh;
         RefreshBuffer(true);
     }
 
     @Override
     public int getItemCount() {
-        return prayerLocationDailyList.size();
+        return prayerLocationList.size();
     }
 
     @Override
     public void onBindViewHolder(PrayerLocationDailyRecyclerViewHolder holder, int position) {
 
-        PrayerRoomLocation location = prayerLocationDailyList.get(position);
+        PrayerRoomLocation location = prayerLocationList.get(position);
         String roomNumber = location.getRoomnumber();
         String description = location.getDescription();
+        JSONObject entryCodeObj = location.getEntryCodeObj();
 
         holder.vRoomNumber.setText(roomNumber);
         holder.vDescription.setText(description);
+
+        String entryCodeText = "Code: ";
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        try {
+            if (entryCodeObj.getBoolean("none")) {
+                holder.vEntryCode.setText(entryCodeText + "None");
+            } else if (entryCodeObj.getString("all").equals("null")) {
+                switch (dayOfWeek) {
+                    case Calendar.SUNDAY:
+                        holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("Sunday"));
+                        break;
+                    case Calendar.MONDAY:
+                        holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("Monday"));
+                        break;
+                    case Calendar.TUESDAY:
+                        holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("Tuesday"));
+                        break;
+                    case Calendar.WEDNESDAY:
+                        holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("Wednesday"));
+                        break;
+                    case Calendar.THURSDAY:
+                        holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("Thursday"));
+                        break;
+                    case Calendar.FRIDAY:
+                        holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("Friday"));
+                        break;
+                    case Calendar.SATURDAY:
+                        holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("Saturday"));
+                        break;
+                    default:
+                        holder.vEntryCode.setText(entryCodeText + "None");
+                        break;
+                }
+            } else {
+                holder.vEntryCode.setText(entryCodeText + entryCodeObj.getString("all"));
+            }
+        } catch (JSONException e) {
+            holder.vEntryCode.setText(entryCodeText + "None");
+            e.printStackTrace();
+        }
 
         if( userPresent != null ) {
             if (!userPresent) {
@@ -91,8 +138,6 @@ public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocati
 //            holder.vButton.setAlpha(0.15f);
         }
 
-        //TODO: Add in vStatus functionality, implement logic on cloud
-
         holder.mLocation = location;
 
         if (fromRefresh && !positionsRefreshed.get(position)) {
@@ -114,7 +159,7 @@ public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocati
     public class PrayerLocationDailyRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected TextView vRoomNumber;
-        protected TextView vStatus;
+        protected TextView vEntryCode;
         protected TextView vDescription;
         protected ImageButton vButton;
         protected PrayerRoomLocation mLocation;
@@ -122,7 +167,7 @@ public class PrayerLocationListAdapter extends RecyclerView.Adapter<PrayerLocati
         public PrayerLocationDailyRecyclerViewHolder(View v) {
             super(v);
             vButton = (ImageButton) v.findViewById(R.id.prayerLocation_present);
-            vStatus = (TextView) v.findViewById(R.id.prayerLocation_status);
+            vEntryCode = (TextView) v.findViewById(R.id.prayerLocation_code);
             vRoomNumber = (TextView) v.findViewById(R.id.prayerLocation_roomNumber);
             vDescription = (TextView) v.findViewById(R.id.prayerLocation_description);
 
